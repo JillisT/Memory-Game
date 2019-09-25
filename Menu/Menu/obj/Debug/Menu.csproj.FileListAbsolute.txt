@@ -1,0 +1,15 @@
+C:\Users\Jillis\source\repos\Menu\Menu\bin\Debug\Menu.exe.config
+C:\Users\Jillis\source\repos\Menu\Menu\bin\Debug\Menu.exe
+C:\Users\Jillis\source\repos\Menu\Menu\bin\Debug\Menu.pdb
+C:\Users\Jillis\source\repos\Menu\Menu\obj\Debug\Menu.csprojAssemblyReference.cache
+C:\Users\Jillis\source\repos\Menu\Menu\obj\Debug\MainWindow.g.cs
+C:\Users\Jillis\source\repos\Menu\Menu\obj\Debug\App.g.cs
+C:\Users\Jillis\source\repos\Menu\Menu\obj\Debug\Menu_MarkupCompile.cache
+C:\Users\Jillis\source\repos\Menu\Menu\obj\Debug\Menu_MarkupCompile.lref
+C:\Users\Jillis\source\repos\Menu\Menu\obj\Debug\MainWindow.baml
+C:\Users\Jillis\source\repos\Menu\Menu\obj\Debug\Menu.g.resources
+C:\Users\Jillis\source\repos\Menu\Menu\obj\Debug\Menu.Properties.Resources.resources
+C:\Users\Jillis\source\repos\Menu\Menu\obj\Debug\Menu.csproj.GenerateResource.cache
+C:\Users\Jillis\source\repos\Menu\Menu\obj\Debug\Menu.csproj.CoreCompileInputs.cache
+C:\Users\Jillis\source\repos\Menu\Menu\obj\Debug\Menu.exe
+C:\Users\Jillis\source\repos\Menu\Menu\obj\Debug\Menu.pdb
