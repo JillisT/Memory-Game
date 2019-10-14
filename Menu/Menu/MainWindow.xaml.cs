@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Memorygame
+namespace Menu
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,27 +23,41 @@ namespace Memorygame
         public MainWindow()
         {
             InitializeComponent();
-            naaminvoer.Visibility = Visibility.Hidden;
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            spelstart.Visibility = Visibility.Hidden;
-            naaminvoer.Visibility = Visibility.Visible;
             
-            //this.Content = huidigspel;
         }
 
-        private void terug_click(object sender, RoutedEventArgs e)
+        private void Button_Exit(object sender, RoutedEventArgs e)
         {
-            spelstart.Visibility = Visibility.Visible;
-            naaminvoer.Visibility = Visibility.Hidden;
+            this.Close();
         }
 
-        private void startspel_click(object sender, RoutedEventArgs e)
+        private void Button_Continue(object sender, RoutedEventArgs e)
         {
-            Spel huidigspel = new Spel();
-            this.Content = huidigspel;
+
+        }
+
+        private void Button_New_Game(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Settings(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Highscores(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
