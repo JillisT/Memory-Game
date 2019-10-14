@@ -27,8 +27,8 @@ namespace Memorygame
 
         private void startspel(object sender, RoutedEventArgs e)
         {
-            
-
+            Spel huidigspel = new Spel();
+            this.Content = huidigspel;
         }
     }
 }

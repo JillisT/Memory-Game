@@ -23,27 +23,44 @@ namespace Memorygame
         public MainWindow()
         {
             InitializeComponent();
-            naaminvoer.Visibility = Visibility.Hidden;
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            spelstart.Visibility = Visibility.Hidden;
-            naaminvoer.Visibility = Visibility.Visible;
+
+        }
+
+        private void Button_Exit(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Button_Continue(object sender, RoutedEventArgs e)
+        {
             
-            //this.Content = huidigspel;
         }
 
-        private void terug_click(object sender, RoutedEventArgs e)
+        private void Button_New_Game(object sender, RoutedEventArgs e)
         {
-            spelstart.Visibility = Visibility.Visible;
-            naaminvoer.Visibility = Visibility.Hidden;
-        }
-
-        private void startspel_click(object sender, RoutedEventArgs e)
-        {
+            // maak huidigspel aan met Spel class
             Spel huidigspel = new Spel();
+            // laat huidigspel zien in huidig scherm
             this.Content = huidigspel;
+        }
+
+        private void Button_Settings(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Highscores(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
