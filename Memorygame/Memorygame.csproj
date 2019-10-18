@@ -58,6 +58,9 @@
     <Compile Include="Spel.xaml.cs">
       <DependentUpon>Spel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SpelWindow.xaml.cs">
+      <DependentUpon>SpelWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -71,6 +74,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Spel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SpelWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

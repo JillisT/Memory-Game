@@ -47,12 +47,11 @@ namespace Memorygame
 
         private void Button_New_Game(object sender, RoutedEventArgs e)
         {
-            // maak huidigspel aan met Spel class
-            Spel huidigspel = new Spel();
-            // laat huidigspel zien in huidig scherm
-            this.Content = huidigspel;
-        }
 
+            SpelWindow spelwindow = new SpelWindow();
+            spelwindow.Show();
+            this.Hide();
+        }
         private void Button_Settings(object sender, RoutedEventArgs e)
         {
 
