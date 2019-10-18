@@ -14,7 +14,9 @@
             <Run Text=" is aan de beurt"></Run>
         </TextBlock>
         <Button Margin="1080,0,20,0" Width="70" Height="30" Content="Reset" Click="resetSpel" />
-        
+        <Button Margin="1080,50,20,0" Width="70" Height="30" Content="Spel opslaan" Click="spelOpslaan" />
+
+
         <TextBlock Margin="600,0,0,0" Width="300" Height="200" MaxHeight="200" HorizontalAlignment="Left" TextAlignment="Center">
             <Run x:Name="label_Score" Text="Score" FontSize="16"></Run>
             <LineBreak/>

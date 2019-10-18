@@ -37,9 +37,12 @@ namespace Memorygame
         private int _huidigeSpeler = 1;
         private string _naamHuidigeSpeler;
         private string _huidigeScore = "0 - 0";
-        private int _huidigeScoreSpeler1 = 0;
-        private int _huidigeScoreSpeler2 = 0;
+        private int _huidigeScoreSpeler1;
+        private int _huidigeScoreSpeler2;
         private int _huidigeCombo = 1;
+        List<String> positieKaartjes = new List<String>();
+        List<String> omgedraaideKaartjes = new List<String>();
+
 
         /// <summary>
         /// int huidigeSpeler wijzigen
@@ -87,7 +90,7 @@ namespace Memorygame
         }
 
         /// <summary>
-        /// 
+        /// Huidige combo wijzigen
         /// </summary>
         public int huidigeCombo
         {
@@ -102,6 +105,9 @@ namespace Memorygame
             }
         }
 
+        /// <summary>
+        /// Aantal nog niet geopende kaartjes wijzigen, en controleren of spel is afgelopen als kaartjes 0 is
+        /// </summary>
         public int aantalKaartjes
         {
             get
@@ -116,7 +122,8 @@ namespace Memorygame
                     if (_huidigeScoreSpeler1 > _huidigeScoreSpeler2)
                     {
                         MessageBox.Show(naamSpeler1 + " heeft gewonnen met " + _huidigeScoreSpeler1 + " punten tegen " + naamSpeler2 + " met " + _huidigeScoreSpeler2 + " punten");
-                    } else if (_huidigeScoreSpeler2 > _huidigeScoreSpeler1)
+                    }
+                    else if (_huidigeScoreSpeler2 > _huidigeScoreSpeler1)
                     {
                         MessageBox.Show(naamSpeler2 + " heeft gewonnen met " + _huidigeScoreSpeler2 + " punten tegen " + naamSpeler1 + " met " + _huidigeScoreSpeler1 + " punten");
                     }
@@ -169,27 +176,65 @@ namespace Memorygame
         }
 
         /// <summary>
-        /// Start het spel
+        /// Start het spel globaal
         /// </summary>
-        /// <param name="_speler1">Naam speler 1</param>
-        /// <param name="_speler2">Naam speler 2</param>
-        public Spel(string _speler1, string _speler2)
+        public Spel()
         {
 
             InitializeComponent();
             DataContext = this;
+
+        }
+
+        /// <summary>
+        /// Start een nieuw spel
+        /// </summary>
+        /// <param name="_speler1">Naam speler 1</param>
+        /// <param name="_speler2">Naam speler 2</param>
+        public void nieuwSpel(string _speler1, string _speler2)
+        {
             // roep initialiseerGrid methode aan om Grid aan te maken
             initialiseerGrid();
             // voeg kaartjes toe in grid elementen
-            genereerMemoryKaartjes();
+            genereerMemoryKaartjes(0);
             // genereer scoreTelling
             scoreTeller();
-            // zet namen in variabelen
+            // zet gegevens in variabelen
             naamSpeler1 = _speler1;
             naamSpeler2 = _speler2;
-            _naamHuidigeSpeler = naamSpeler1;
-            label_Score_namen.Text = naamSpeler1 + " - " + naamSpeler2; ;
         }
+
+        /// <summary>
+        /// Start een nieuw spel adv bestaand SAV bestand
+        /// </summary>
+        /// <param name="_beginScoreSpeler1">Score speler 1</param>
+        /// <param name="_beginScoreSpeler2">Score speler 2</param>
+        /// <param name="_speler1">Naam speler 1</param>
+        /// <param name="_speler2">Naam speler 2</param>
+        /// <param name="_beginCombo">Huidige Combostand</param>
+        /// <param name="omgedraaideKaartjes">String lijst met de IMG paden van reeds geopende kaartjes.</param>
+        /// <param name="_positie_kaartjes">Lijst met de volgorde van de kaartjes</param>
+        public void hervatSpel(int _beginScoreSpeler1, int _beginScoreSpeler2, string _speler1, string _speler2, int _beginCombo, List<String> _omgedraaideKaartjes, List<String> _positieKaartjes)
+        {
+            // stel namen spelers in
+            naamSpeler1 = _speler1;
+            naamSpeler2 = _speler2;
+            // pas bestaande punten toe
+            puntenWijzigen(1, _beginScoreSpeler1);
+            puntenWijzigen(2, _beginScoreSpeler2);
+            // pas combopunten toe
+            huidigeCombo = _beginCombo;
+            omgedraaideKaartjes = _omgedraaideKaartjes;
+            positieKaartjes = _positieKaartjes;
+            // roep initialiseerGrid methode aan om Grid aan te maken
+            initialiseerGrid();
+            // voeg kaartjes toe in grid elementen
+            genereerMemoryKaartjes(1);
+            // genereer scoreTelling
+            scoreTeller();
+            // zet gegevens in variabelen
+        }
+
 
         private void scoreTeller()
         {
@@ -198,7 +243,7 @@ namespace Memorygame
 
 
         /// <summary>
-        /// Genereer afbeeldingen lijst
+        /// Genereer nieuwe afbeeldingen lijst
         /// </summary>
         /// <returns>Geeft lijst terug met ImageSources</returns>
         private List<ImageSource> genImgLijst()
@@ -214,6 +259,8 @@ namespace Memorygame
                 ImageSource bron = new BitmapImage(new Uri("images/" + afbeeldingnr + ".png", UriKind.Relative));
                 // voeg bron toe aan de lijst
                 afbeeldingen.Add(bron);
+                // voeg toe aan positie kaartjes Lijst
+                positieKaartjes.Add(Convert.ToString(bron));
             }
             // als lijst compleet gevuld is, return deze
             return afbeeldingen;
@@ -221,10 +268,24 @@ namespace Memorygame
         /// <summary>
         /// Genereer MemoryKaartjes
         /// </summary>
-        private void genereerMemoryKaartjes()
+        private void genereerMemoryKaartjes(int spelLaden)
         {
-            // genereer random lijst met afbeeldingen
-            List<ImageSource> achterkantImg = genImgLijst();
+            // genereer random lijst met afbeeldingen als nieuw spel, of neem bestaande lijst als bestaand spel
+            List<ImageSource> achterkantImg = new List<ImageSource>();
+            // als het een nieuw spel is, dan de genImgLijst functie aanroepen om lijst te vullen
+            if (spelLaden == 0)
+            {
+                achterkantImg = genImgLijst();
+            }
+            // als het een bestaand spel is, dan de gegevens uit de positieKaartjeslijst overzetten naar afbeeldingen lijst
+            else if (spelLaden == 1)
+            {
+                foreach (string _regel in positieKaartjes)
+                {
+                    ImageSource bron = new BitmapImage(new Uri(_regel, UriKind.Relative));
+                    achterkantImg.Add(bron);
+                }
+            }
             // loop alle rijen af
             for (int rij = 0; rij < aantalRijen; rij++)
             {
@@ -244,6 +305,18 @@ namespace Memorygame
                     // selecteer juiste grid dmv variabelen in de 2 for lussen
                     Grid.SetColumn(kaartje, kolom);
                     Grid.SetRow(kaartje, rij);
+                    // indien bestaand spel, controleer of op lijst met geopende kaarten dit kaartje voorkomt
+                    // zo ja, stel onderkant plaatje als standaard in en haal MouseDown event weg
+                    if (spelLaden == 1)
+                    {
+                        {
+                            if (omgedraaideKaartjes.Contains("pack://application:,,,/Memorygame;component/" + (Convert.ToString(kaartje.Tag))))
+                            {
+                                kaartje.Source = new BitmapImage(new Uri((Convert.ToString(kaartje.Tag)), UriKind.Relative));
+                                kaartje.MouseDown -= kaartklik;
+                            }
+                        }
+                    }
                     // voeg ingestelde waarden kaartje in op betreffende grid
                     MemoryGrid.Children.Add(kaartje);
                 }
@@ -288,6 +361,8 @@ namespace Memorygame
                     aantalKaartjes -= 2;
                     // verhoog combo
                     huidigeCombo += 1;
+                    // voeg toe aan lijst met omgedraaide kaartjes
+                    omgedraaideKaartjes.Add(bronKaart1 + "\n");
                 }
             }
             if (aantalKlik == 3)
@@ -343,7 +418,7 @@ namespace Memorygame
             MemoryGrid.Children.Clear();
             // maak grid aan en genereer kaartjes
             initialiseerGrid();
-            genereerMemoryKaartjes();
+            genereerMemoryKaartjes(0);
             // zet speler weer op 1
             huidigeSpeler = 1;
             aantalKlik = 0;
@@ -354,6 +429,15 @@ namespace Memorygame
             huidigeCombo = 1;
         }
 
+        /// <summary>
+        /// Spel opslaan
+        /// </summary>
+        private void spelOpslaan(object sender, RoutedEventArgs e)
+        {
+            //omgedraaideKaartjees.Add(Convert.ToString(openKaart1.Source));
+            Save opslaan = new Save();
+            opslaan.Wegschrijven(_huidigeScoreSpeler1, _huidigeScoreSpeler2, naamSpeler1, naamSpeler2, huidigeCombo, positieKaartjes, omgedraaideKaartjes);
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

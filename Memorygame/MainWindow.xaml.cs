@@ -42,13 +42,15 @@ namespace Memorygame
 
         private void Button_Continue(object sender, RoutedEventArgs e)
         {
-            
+            SpelWindow spelwindow = new SpelWindow(1);
+            spelwindow.Show();
+            this.Hide();
         }
 
         private void Button_New_Game(object sender, RoutedEventArgs e)
         {
 
-            SpelWindow spelwindow = new SpelWindow();
+            SpelWindow spelwindow = new SpelWindow(0);
             spelwindow.Show();
             this.Hide();
         }
