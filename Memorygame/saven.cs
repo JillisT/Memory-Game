@@ -49,14 +49,23 @@ namespace Memorygame
         }
 
         /// <summary>
-        /// Controleer of Sav bestand bestaat
+        /// Controleer of highscore bestand is ingevuld
         /// </summary>
         /// <returns>True of False</returns>
-        public bool controleerHighscoresBestandAanwezig()
+        public bool controleerHighscoresBestand()
         {
             if (new FileInfo(map + padHighscores).Length == 0)
                 return false;
             return true;
+        }
+
+        /// <summary>
+        /// Controleer of highscore bestand bestaat
+        /// </summary>
+        /// <returns>True of False</returns>
+        public bool controleerHighscoresBestandAanwezig()
+        {
+            return (File.Exists(map + padHighscores));
         }
 
         /// <summary>
@@ -75,6 +84,62 @@ namespace Memorygame
             if (controleerSav())
                 File.WriteAllText(map + padSavBestand, string.Empty);
         }
+
+        /// <summary>
+        /// Sla highscores op
+        /// </summary>
+        /// <param name="_scoreSpeler1">Score speler 1</param>
+        /// <param name="_scoreSpeler2">Score speler 2</param>
+        /// <param name="_naamSpeler1">Naam speler 1</param>
+        /// <param name="_naamSpeler2">Naam speler 2</param>
+        public void highscoreWegscrijven(int _scoreSpeler1, int _scoreSpeler2, string _naamSpeler1, string _naamSpeler2)
+        {
+            Dictionary<string, int> _highScores = highscoreUitlezen();
+            if (_highScores.ContainsKey(_naamSpeler1))
+                _highScores[_naamSpeler1] = _scoreSpeler1;
+            else
+                _highScores.Add(_naamSpeler1, _scoreSpeler1);
+            if (_highScores.ContainsKey(_naamSpeler2))
+                _highScores[_naamSpeler2] = _scoreSpeler2;
+            else
+                _highScores.Add(_naamSpeler2, _scoreSpeler2);
+            int _aantalScores = _highScores.Count() > 10 ? 10 : _highScores.Count();
+            var _highScoresGesorteerd = from entry in _highScores orderby entry.Value descending select entry;
+            File.WriteAllText(map + padHighscores, string.Empty);
+            foreach (KeyValuePair<string, Int32> entry in _highScoresGesorteerd)
+            {
+                File.AppendAllText(map + padHighscores, string.Format("{0}\n{1}\n", entry.Key, entry.Value));
+                _aantalScores--;
+                if (_aantalScores == 0)
+                    break;
+            }
+
+        }
+
+        /// <summary>
+        /// Lees Highscores uit
+        /// </summary>
+        /// <returns>Dictionary met naam en score</returns>
+        public Dictionary<string, int> highscoreUitlezen()
+        {
+            string _naam = "";
+            Dictionary<string, int> _highScores = new Dictionary<string, int>();
+            foreach (string line in File.ReadLines(map + padHighscores, Encoding.UTF8))
+            {
+                if (_naam == "")
+                {
+                    _naam = line;
+                    continue;
+                }
+                else
+                {
+                    _highScores.Add(_naam, Convert.ToInt32(line));
+                    _naam = "";
+                }
+            }
+            return _highScores;
+        }
+
 
         /// <summary>
         /// Sla spel op in SAV bestand

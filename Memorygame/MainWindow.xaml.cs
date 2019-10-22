@@ -30,7 +30,7 @@ namespace Memorygame
             if((controleerMap.controleerMap()))
             {
                 savAanwezig = controleerMap.controleerSav();
-                highscoresAanwezig = controleerMap.controleerHighscoresBestandAanwezig();
+                highscoresAanwezig = controleerMap.controleerHighscoresBestand();
             }
         }
 
@@ -100,6 +100,8 @@ namespace Memorygame
         {
             if (!(highscoresAanwezig))
                 MessageBox.Show("Highscores zijn niet beschikbaar");
+            Highscores highscores = new Highscores();
+            highscores.Show();
         }
     }
 }

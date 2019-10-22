@@ -323,6 +323,10 @@ namespace Memorygame
                     huidigeCombo += 1;
                     // Voeg tag van omgedraaide kaartjes toe aan lijst met omgedraaide kaartjes
                     omgedraaieKaartjes.Add(bronKaart1.Substring(bronKaart1.IndexOf("images")));
+                    // highscore opslaan
+                    saven saven = new saven();
+                    if (saven.controleerHighscoresBestandAanwezig())
+                        saven.highscoreWegscrijven(huidigeScoreSpeler1, huidigeScoreSpeler2, naamSpeler1, naamSpeler2);
                 }
             }
             if (aantalKlik == 3)
