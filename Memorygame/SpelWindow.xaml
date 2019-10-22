@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Memorygame"
         mc:Ignorable="d"
+        Closing="schermSluiten"
         Title="SpelWindow" Height="800" Width="1200">
     <Grid Background="Black" x:Name="spelstartenframe">
         <TextBlock x:Name="Memory_game" Margin="0,0,0,0" TextWrapping="Wrap" HorizontalAlignment="Center" Width="400" FontSize="36" Foreground="#FF1B1B1B" TextAlignment="Center" FontWeight="Bold" Background="#FF5151DE" Height="100" VerticalAlignment="Top" Text="Nieuw spel starten"/>

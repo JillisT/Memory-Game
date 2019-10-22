@@ -27,12 +27,11 @@ namespace Memorygame
             InitializeComponent();
             saven controleerMap = new saven();
             // controleer op de MemoryGame map bestaat, indien niet dan proberen map aan te maken. Indien het niet lukt, geef foutmelding
-            if(!(controleerMap.controleerMap()))
-                MessageBox.Show("De map C:\\MemoryGame is niet aanwezig. Hierdoor zijn bepaalde functie's niet beschikbaar");
-            // controleer of er een SAV bestand aanwezig is.
-            savAanwezig = controleerMap.controleerSav();
-            // controleer of highscores aanwezig zijn
-            highscoresAanwezig = controleerMap.controleerHighscoresBestandAanwezig();
+            if((controleerMap.controleerMap()))
+            {
+                savAanwezig = controleerMap.controleerSav();
+                highscoresAanwezig = controleerMap.controleerHighscoresBestandAanwezig();
+            }
         }
 
 
@@ -72,7 +71,7 @@ namespace Memorygame
             if (savAanwezig)
                 // sav aanwezig, vragen om spel te herstarten of hervatten
             {
-                MessageBoxResult m = MessageBox.Show("Wil je het opgeslagen spel verder spelen?", "Opgeslagen bestand gevonden.", MessageBoxButton.YesNo);
+                MessageBoxResult m = MessageBox.Show("Wil je het opgeslagen spel verder spelen? Indien nee, dan wordt het voorgaande spel gewist", "Opgeslagen bestand gevonden.", MessageBoxButton.YesNo);
                 if (m == MessageBoxResult.Yes)
                 {
                     SpelWindow spelwindow = new SpelWindow(true);

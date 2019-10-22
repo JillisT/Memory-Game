@@ -23,20 +23,20 @@ namespace Memorygame
         {
             if (!(Directory.Exists(map)))
             {
-                Directory.CreateDirectory(map);
-                File.Create(map + padSavBestand);
-                File.Create(map + padHighscores);
+                try { Directory.CreateDirectory(map); }
+                catch (Exception) { MessageBox.Show("Kan map niet aanmaken. Zorg ervoor dat de map " + map + " bestaat en toegankelijk is. Opslaan en highscores zijn niet beschikbaar"); return false; };
             }
-            if (Directory.Exists(map))
+            if (!(File.Exists(map + padSavBestand)))
             {
-                if(!(File.Exists(map + padSavBestand)))
-                    File.Create(map + padSavBestand);
-                if (!(File.Exists(map + padHighscores)))
-                    File.Create(map + padHighscores);
+                try { File.Create(map + padSavBestand); }
+                catch (Exception) { MessageBox.Show("Kan SAV bestand niet aanmaken. Zorg ervoor dat " + map + padSavBestand + " bestaat en toegankelijk is. Opslaan is niet beschikbaar"); return false; };
             }
-            if ((Directory.Exists(map)) && (File.Exists(map + padSavBestand)) && (File.Exists(map + padHighscores)))
-               return true;
-            return false;
+            if (!(File.Exists(map + padHighscores)))
+            {
+                try { File.Create(map + padHighscores); }
+                catch (Exception) { MessageBox.Show("Kan highscore bestand niet aanmaken. Zorg ervoor dat " + map + padHighscores + " bestaat en toegankelijk is. Opslaan is niet beschikbaar"); return false; };
+            }
+            return true;
         }
 
         /// <summary>
@@ -68,6 +68,12 @@ namespace Memorygame
             if (new FileInfo(map + padSavBestand).Length == 0)
                 return false;
             return true;
+        }
+
+        public void resetSav()
+        {
+            if (controleerSav())
+                File.WriteAllText(map + padSavBestand, string.Empty);
         }
 
         /// <summary>

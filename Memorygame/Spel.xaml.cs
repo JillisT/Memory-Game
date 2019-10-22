@@ -180,6 +180,12 @@ namespace Memorygame
             genereerMemoryKaartjes();
             // genereer scoreTelling
             scoreTeller();
+            // als nieuw spel, maar save gevonden, verwijder save
+            if (!spelHervatten)
+            {
+                saven saven = new saven();
+                saven.resetSav();
+            }
         }
 
         private void scoreTeller()
@@ -409,7 +415,7 @@ namespace Memorygame
             } else
             // sav bestand niet aanwezig!
             {
-                MessageBox.Show("Het opslaan is niet beschikbaar doordat C:\\MemoryGame\\save.sav mist");
+                MessageBox.Show("Het opslaan is niet beschikbaar doordat het SAV bestand mist");
             }
             
         }

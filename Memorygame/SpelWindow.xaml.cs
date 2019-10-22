@@ -69,5 +69,11 @@ namespace Memorygame
             Spel spel = new Spel(0, 0, _Speler1, _Speler1, 1, 1, false);
             this.Content = spel;
         }
+
+        private void schermSluiten (object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MainWindow mainwindow = new MainWindow();
+            mainwindow.Show();
+        }
     }
 }
