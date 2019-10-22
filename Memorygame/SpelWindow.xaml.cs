@@ -19,10 +19,22 @@ namespace Memorygame
     /// </summary>
     public partial class SpelWindow : Window
     {
-        public SpelWindow()
+        /// <summary>
+        /// Spel starten
+        /// </summary>
+        /// <param name="_spelHervatten">Spel herstarten? Geef TRUE mee</param>
+        public SpelWindow(bool _spelHervatten)
         {
             InitializeComponent();
             DataContext = this;
+            if (_spelHervatten)
+            {
+                // er moet een spel worden hervat. Lees basisgegevens uit, start spel direct door met parameters 
+                saven ophalen = new saven();
+                string[] _basisGegevens = ophalen.basisGegevens();
+                Spel spel = new Spel(Convert.ToInt32(_basisGegevens[0]), Convert.ToInt32(_basisGegevens[1]), _basisGegevens[2], _basisGegevens[3], Convert.ToInt32(_basisGegevens[4]), Convert.ToInt32(_basisGegevens[5]), true);
+                this.Content = spel;
+            }
         }
 
         private string _Speler1 = "Speler 1";
@@ -53,7 +65,8 @@ namespace Memorygame
 
         private void Spel_starten(object sender, RoutedEventArgs e)
         {
-            Spel spel = new Spel(Speler1, Speler2);
+            // start een nieuw spel
+            Spel spel = new Spel(0, 0, _Speler1, _Speler1, 1, 1, false);
             this.Content = spel;
         }
     }

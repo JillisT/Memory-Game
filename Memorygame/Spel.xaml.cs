@@ -34,12 +34,15 @@ namespace Memorygame
         string bronKaart2;
         string naamSpeler1;
         string naamSpeler2;
-        private int _huidigeSpeler = 1;
+        private int _huidigeSpeler;
         private string _naamHuidigeSpeler;
-        private string _huidigeScore = "0 - 0";
-        private int _huidigeScoreSpeler1 = 0;
-        private int _huidigeScoreSpeler2 = 0;
-        private int _huidigeCombo = 1;
+        private string _huidigeScore;
+        private int huidigeScoreSpeler1;
+        private int huidigeScoreSpeler2;
+        private int _huidigeCombo;
+        bool spelHervatten;
+        List<String> ImgLijstString = new List<String>();
+        List<String> omgedraaieKaartjes = new List<String>();
 
         /// <summary>
         /// int huidigeSpeler wijzigen
@@ -50,8 +53,7 @@ namespace Memorygame
             set
             {
                 _huidigeSpeler = value;
-                // aangezien huidge speler ID wordt gewijzigd, moet ook de naam worden gewijzigd via de wijzigNaamHuidigeSpeler functie
-                wijzigNaamHuidigeSpeler(value);
+                naamHuidigeSpeler = value == 1 ? naamSpeler1 : naamSpeler2;
             }
         }
 
@@ -60,10 +62,7 @@ namespace Memorygame
         /// </summary>
         public string naamHuidigeSpeler
         {
-            get
-            {
-                return _naamHuidigeSpeler;
-            }
+            get { return _naamHuidigeSpeler; }
             set
             {
                 _naamHuidigeSpeler = value;
@@ -75,10 +74,7 @@ namespace Memorygame
         /// </summary>
         public string huidigeScore
         {
-            get
-            {
-                return _huidigeScore;
-            }
+            get { return _huidigeScore; }
             set
             {
                 _huidigeScore = value;
@@ -87,60 +83,41 @@ namespace Memorygame
         }
 
         /// <summary>
-        /// 
+        /// huidge Combo string wijzigen
         /// </summary>
         public int huidigeCombo
         {
-            get
-            {
-                return _huidigeCombo;
-            }
+            get { return _huidigeCombo; }
             set
             {
                 _huidigeCombo = value;
                 PropertyGewijzigd();
             }
         }
-
+        /// <summary>
+        /// Aantal kaartjes int wijzigen. Check direct voor winnaar als kaartjes 0 is
+        /// </summary>
         public int aantalKaartjes
         {
-            get
-            {
-                return _aantalKaartjes;
-            }
+            get { return _aantalKaartjes; }
             set
             {
                 _aantalKaartjes = value;
                 if (_aantalKaartjes == 0)
                 {
-                    if (_huidigeScoreSpeler1 > _huidigeScoreSpeler2)
+                    if (huidigeScoreSpeler1 > huidigeScoreSpeler2)
                     {
-                        MessageBox.Show(naamSpeler1 + " heeft gewonnen met " + _huidigeScoreSpeler1 + " punten tegen " + naamSpeler2 + " met " + _huidigeScoreSpeler2 + " punten");
-                    } else if (_huidigeScoreSpeler2 > _huidigeScoreSpeler1)
+                        MessageBox.Show(naamSpeler1 + " heeft gewonnen met " + huidigeScoreSpeler1 + " punten tegen " + naamSpeler2 + " met " + huidigeScoreSpeler2 + " punten");
+                    }
+                    else if (huidigeScoreSpeler2 > huidigeScoreSpeler1)
                     {
-                        MessageBox.Show(naamSpeler2 + " heeft gewonnen met " + _huidigeScoreSpeler2 + " punten tegen " + naamSpeler1 + " met " + _huidigeScoreSpeler1 + " punten");
+                        MessageBox.Show(naamSpeler2 + " heeft gewonnen met " + huidigeScoreSpeler2 + " punten tegen " + naamSpeler1 + " met " + huidigeScoreSpeler1 + " punten");
                     }
                     else
                     {
                         MessageBox.Show("Gelijk spel!");
                     }
                 }
-            }
-        }
-
-        /// <summary>
-        /// Wijzig adv ID nummer de naam van de huidige speler
-        /// </summary>
-        /// <param name="_huidigeSpelerNummer">ID nummer speler welke aan de beurt is</param>
-        private void wijzigNaamHuidigeSpeler(int _huidigeSpelerNummer)
-        {
-            if (_huidigeSpelerNummer == 1)
-            {
-                naamHuidigeSpeler = naamSpeler1;
-            }
-            else if (_huidigeSpelerNummer == 2)
-            {
-                naamHuidigeSpeler = naamSpeler2;
             }
         }
 
@@ -153,42 +130,56 @@ namespace Memorygame
         {
             if (_voorSpeler == 1)
             {
-                _huidigeScoreSpeler1 += _aantalPunten;
+                huidigeScoreSpeler1 += _aantalPunten;
             }
             else if (_voorSpeler == 2)
             {
-                _huidigeScoreSpeler2 += _aantalPunten;
+                huidigeScoreSpeler2 += _aantalPunten;
             }
             else if (_voorSpeler == 0)
             {
-                _huidigeScoreSpeler1 = 0;
-                _huidigeScoreSpeler2 = 0;
+                huidigeScoreSpeler1 = 0;
+                huidigeScoreSpeler2 = 0;
             }
             // pas string aan met daarin netjes de score verwerkt
-            huidigeScore = _huidigeScoreSpeler1 + " - " + _huidigeScoreSpeler2;
+            huidigeScore = huidigeScoreSpeler1 + " - " + huidigeScoreSpeler2;
         }
 
         /// <summary>
         /// Start het spel
         /// </summary>
-        /// <param name="_speler1">Naam speler 1</param>
-        /// <param name="_speler2">Naam speler 2</param>
-        public Spel(string _speler1, string _speler2)
+        /// <param name="_beginscoreSpeler1">Beginscore speler 1</param>
+        /// <param name="_beginscoreSpeler2">Beginscore speler 2</param>
+        /// <param name="_naamSpeler1">Naam speler 1</param>
+        /// <param name="_naamSpeler2">naam speler 2</param>
+        /// <param name="_combo">huidige combo</param>
+        /// <param name="_huidigeSpeler">huidige speler</param>
+        /// <param name="_spelHervatten">betreft het een herstart spel?</param>
+        public Spel(int _beginscoreSpeler1, int _beginscoreSpeler2, string _naamSpeler1, string _naamSpeler2, int _combo, int _huidigeSpeler, bool _spelHervatten)
         {
 
             InitializeComponent();
             DataContext = this;
+            // variabelen invullen
+            naamSpeler1 = _naamSpeler1;
+            naamSpeler2 = _naamSpeler2;
+            huidigeSpeler = _huidigeSpeler;
+            puntenWijzigen(1, _beginscoreSpeler1);
+            puntenWijzigen(2, _beginscoreSpeler2);
+            spelHervatten = _spelHervatten;
+            // als herstart spel, haal kaartjesLijst positie op
+            if (spelHervatten)
+            {
+                saven ophalen = new saven();
+                ImgLijstString = ophalen.kaartjesLijst();
+                omgedraaieKaartjes = ophalen.omgedraaideKaartjes();
+            }
             // roep initialiseerGrid methode aan om Grid aan te maken
             initialiseerGrid();
             // voeg kaartjes toe in grid elementen
             genereerMemoryKaartjes();
             // genereer scoreTelling
             scoreTeller();
-            // zet namen in variabelen
-            naamSpeler1 = _speler1;
-            naamSpeler2 = _speler2;
-            _naamHuidigeSpeler = naamSpeler1;
-            label_Score_namen.Text = naamSpeler1 + " - " + naamSpeler2; ;
         }
 
         private void scoreTeller()
@@ -203,28 +194,43 @@ namespace Memorygame
         /// <returns>Geeft lijst terug met ImageSources</returns>
         private List<ImageSource> genImgLijst()
         {
-            // maak lijst aan
-            List<ImageSource> afbeeldingen = new List<ImageSource>();
-            // bereken hoeveel afbeeldingen nodig is
-            for (int i = 0; i < aantalRijen * aantalKolommen; i++)
+            List<ImageSource> _gen = new List<ImageSource>();
+            // als het een hervat spel betreft, haal opgeslagen lijst op en zet deze om in ImageSource's in _gen lijst
+            if (spelHervatten)
             {
-                // voor elke 2 hokjes is dezelfde afbeelding nogig, berekenen met divider
-                int afbeeldingnr = i % 8 + 1;
-                // maak een ImageSource aan genaamd bron, vul hier het imagepad in met het adbeeldingsnummer
-                ImageSource bron = new BitmapImage(new Uri("images/" + afbeeldingnr + ".png", UriKind.Relative));
-                // voeg bron toe aan de lijst
-                afbeeldingen.Add(bron);
+                saven ophalen = new saven();
+                List<String> _kaartjesLijst = ophalen.kaartjesLijst();
+                foreach (string _kaartje in _kaartjesLijst)
+                {
+                    // maak een ImageSource aan genaamd bron, vul hier het imagepad in met het adbeeldingsnummer
+                    ImageSource bron = new BitmapImage(new Uri(_kaartje, UriKind.Relative));
+                    // voeg bron toe aan de lijst
+                    _gen.Add(bron);
+                }
             }
-            // als lijst compleet gevuld is, return deze
-            return afbeeldingen;
+            else
+            // als het een nieuw spel betreft, genereer een compleet nieuwe lijst
+            {
+                for (int i = 0; i < aantalRijen * aantalKolommen; i++)
+                {
+                    // voor elke 2 hokjes is dezelfde afbeelding nogig, berekenen met divider
+                    int afbeeldingnr = i % 8 + 1;
+                    // maak een ImageSource aan genaamd bron, vul hier het imagepad in met het adbeeldingsnummer
+                    ImageSource bron = new BitmapImage(new Uri("images/" + afbeeldingnr + ".png", UriKind.Relative));
+                    // voeg bron toe aan de lijst
+                    ImgLijstString.Add(Convert.ToString(bron));
+                    _gen.Add(bron);
+                }
+            }
+            return _gen;
         }
         /// <summary>
         /// Genereer MemoryKaartjes
         /// </summary>
-        private void genereerMemoryKaartjes()
+        public void genereerMemoryKaartjes()
         {
             // genereer random lijst met afbeeldingen
-            List<ImageSource> achterkantImg = genImgLijst();
+            List<ImageSource> _afbeeldingen = genImgLijst();
             // loop alle rijen af
             for (int rij = 0; rij < aantalRijen; rij++)
             {
@@ -233,14 +239,35 @@ namespace Memorygame
                 {
                     //maak Image aan
                     Image kaartje = new Image();
-                    // Vul bron met vraagteken image
-                    kaartje.Source = new BitmapImage(new Uri("Vraagteken.png", UriKind.Relative));
+                    // als het een hervat spel betreft, controleer of deze afbeelding al is omgedraaid
+                    if (spelHervatten)
+                    {
+                        // als het kaartje als is omgedraaid, laat dan de onderkant zien
+                        if (omgedraaieKaartjes.Contains(Convert.ToString(_afbeeldingen[0])))
+                        {
+                            kaartje.Source = new BitmapImage(new Uri(Convert.ToString(_afbeeldingen[0]), UriKind.Relative));
+                        }
+                        // als het kaartje nog niet is omgedraaid
+                        else
+                        {
+                            // Vul bron met vraagteken image
+                            kaartje.Source = new BitmapImage(new Uri("Vraagteken.png", UriKind.Relative));
+                            // voeg event toe aan kaartje. Bij klik op kaartje voer 'kaartklik' uit
+                            kaartje.MouseDown += new MouseButtonEventHandler(kaartklik);
+                        }
+                    }
+                    // als het een nieuw spel is, voeg de kaartjes dan normaal toe allemaal gesloten en met MouseDown event
+                    else
+                    {
+                        // Vul bron met vraagteken image
+                        kaartje.Source = new BitmapImage(new Uri("Vraagteken.png", UriKind.Relative));
+                        // voeg event toe aan kaartje. Bij klik op kaartje voer 'kaartklik' uit
+                        kaartje.MouseDown += new MouseButtonEventHandler(kaartklik);
+                    }
                     // voeg tag toe aan kaartje met afbeelding achterkant, haal deze van lijst
-                    kaartje.Tag = achterkantImg.First();
-                    // verwijder afbeelding van lijst
-                    achterkantImg.RemoveAt(0);
-                    // voeg event toe aan kaartje. Bij klik op kaartje voer 'kaartklik' uit
-                    kaartje.MouseDown += new MouseButtonEventHandler(kaartklik);
+                    kaartje.Tag = _afbeeldingen[0];
+                    // verwijder bovenstaande imgsrc
+                    _afbeeldingen.RemoveAt(0);
                     // selecteer juiste grid dmv variabelen in de 2 for lussen
                     Grid.SetColumn(kaartje, kolom);
                     Grid.SetRow(kaartje, rij);
@@ -263,22 +290,22 @@ namespace Memorygame
             {
                 // als 1 keer in beurt is geklikt, laat dan de achterkant en noteer de waarde van dit plaatje in bronKaart1
                 openKaart1 = kaart;
-                ImageSource voorkant = (ImageSource)kaart.Tag;
-                kaart.Source = voorkant;
+                ImageSource achterkant = (ImageSource)kaart.Tag;
+                kaart.Source = achterkant;
                 kaart.MouseDown -= kaartklik;
-                bronKaart1 = Convert.ToString(voorkant);
+                bronKaart1 = (Convert.ToString(kaart.Tag));
             }
             if (aantalKlik == 2)
             {
                 // als 2 keer in beurt is geklikt, laat dan de achterkant en noteer de waarde van dit plaatje in bronKaart2
                 openKaart2 = kaart;
-                ImageSource voorkant = (ImageSource)kaart.Tag;
-                kaart.Source = voorkant;
-                bronKaart2 = Convert.ToString(voorkant);
+                ImageSource achterkant = (ImageSource)kaart.Tag;
+                kaart.Source = achterkant;
+                bronKaart2 = (Convert.ToString(kaart.Tag));
                 // controleer bij 2 keer klikken of de waarden van bronKaart1 en bronKaart2 gelijk zijn
                 if ((bronKaart1) == (bronKaart2))
                 {
-                    // 2 kaarten zijn gelijk. Doe iets??? en stel aantalKlik weer op 0
+                    // 2 kaarten zijn gelijk. Verhoog punten met huidige combo stand en stel aantalKlik weer op 0
                     puntenWijzigen(huidigeSpeler, huidigeCombo);
                     aantalKlik = 0;
                     // zorg dat de 2 kaartjes niet meer kunnen worden aangeklikt
@@ -288,6 +315,8 @@ namespace Memorygame
                     aantalKaartjes -= 2;
                     // verhoog combo
                     huidigeCombo += 1;
+                    // Voeg tag van omgedraaide kaartjes toe aan lijst met omgedraaide kaartjes
+                    omgedraaieKaartjes.Add(bronKaart1.Substring(bronKaart1.IndexOf("images")));
                 }
             }
             if (aantalKlik == 3)
@@ -299,14 +328,7 @@ namespace Memorygame
                 // voeg klikevent weer toe aan kaart1
                 openKaart1.MouseDown += new MouseButtonEventHandler(kaartklik);
                 // wissel van speler
-                if (huidigeSpeler == 1)
-                {
-                    huidigeSpeler = 2;
-                }
-                else if (huidigeSpeler == 2)
-                {
-                    huidigeSpeler = 1;
-                }
+                huidigeSpeler = huidigeSpeler == 1 ? 2 : 1;
                 // zet combo op 1
                 huidigeCombo = 1;
             }
@@ -371,5 +393,25 @@ namespace Memorygame
             }
         }
 
+        /// <summary>
+        /// Spel opslaan klik
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void opslaan(object sender, RoutedEventArgs e)
+        {
+            saven saven = new saven();
+            // controleer of Sav bestand aanwezig is
+            if (saven.controleerSavBestandAanwezig())
+            {
+                saven.savebestandWegscrijven(huidigeScoreSpeler1, huidigeScoreSpeler2, naamSpeler1, naamSpeler2, huidigeCombo, huidigeSpeler, ImgLijstString, omgedraaieKaartjes);
+                MessageBox.Show("Opslaan gelukt");
+            } else
+            // sav bestand niet aanwezig!
+            {
+                MessageBox.Show("Het opslaan is niet beschikbaar doordat C:\\MemoryGame\\save.sav mist");
+            }
+            
+        }
     }
 }

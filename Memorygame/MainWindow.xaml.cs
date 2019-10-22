@@ -20,10 +20,21 @@ namespace Memorygame
     /// </summary>
     public partial class MainWindow : Window
     {
+        bool savAanwezig;
+        bool highscoresAanwezig;
         public MainWindow()
         {
             InitializeComponent();
+            saven controleerMap = new saven();
+            // controleer op de MemoryGame map bestaat, indien niet dan proberen map aan te maken. Indien het niet lukt, geef foutmelding
+            if(!(controleerMap.controleerMap()))
+                MessageBox.Show("De map C:\\MemoryGame is niet aanwezig. Hierdoor zijn bepaalde functie's niet beschikbaar");
+            // controleer of er een SAV bestand aanwezig is.
+            savAanwezig = controleerMap.controleerSav();
+            // controleer of highscores aanwezig zijn
+            highscoresAanwezig = controleerMap.controleerHighscoresBestandAanwezig();
         }
+
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -42,15 +53,44 @@ namespace Memorygame
 
         private void Button_Continue(object sender, RoutedEventArgs e)
         {
-            
+            if (savAanwezig)
+            {
+                SpelWindow spelwindow = new SpelWindow(true);
+                spelwindow.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Geen opgeslagen spel gevonden!");
+            }
+
+
         }
 
         private void Button_New_Game(object sender, RoutedEventArgs e)
         {
-
-            SpelWindow spelwindow = new SpelWindow();
-            spelwindow.Show();
+            if (savAanwezig)
+                // sav aanwezig, vragen om spel te herstarten of hervatten
+            {
+                MessageBoxResult m = MessageBox.Show("Wil je het opgeslagen spel verder spelen?", "Opgeslagen bestand gevonden.", MessageBoxButton.YesNo);
+                if (m == MessageBoxResult.Yes)
+                {
+                    SpelWindow spelwindow = new SpelWindow(true);
+                    spelwindow.Show();
+                }
+                else if (m == MessageBoxResult.No)
+                {
+                    SpelWindow spelwindow = new SpelWindow(false);
+                    spelwindow.Show();
+                }
+            } else
+            // geem sav aanwezig, niet spel starten
+            {
+                SpelWindow spelwindow = new SpelWindow(false);
+                spelwindow.Show();
+            }
             this.Hide();
+
         }
         private void Button_Settings(object sender, RoutedEventArgs e)
         {
@@ -59,7 +99,8 @@ namespace Memorygame
 
         private void Button_Highscores(object sender, RoutedEventArgs e)
         {
-
+            if (!(highscoresAanwezig))
+                MessageBox.Show("Highscores zijn niet beschikbaar");
         }
     }
 }
