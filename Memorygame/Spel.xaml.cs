@@ -26,7 +26,7 @@ namespace Memorygame
         // variabelen voor het aantal de initializeren rijen en kolommen
         private const int aantalRijen = 4;
         private const int aantalKolommen = 4;
-        private int _aantalKaartjes = aantalRijen * aantalKolommen + (aantalKolommen % 2);
+        private int _aantalKaartjes = aantalRijen * aantalKolommen - (aantalKolommen % 2); // Het laatste element is nul bij een even getal en 1 bij een oneven getal, zorgt er voor dat het aantal kaarten even is. 
         int aantalKlik = 0;
         Image openKaart1;
         Image openKaart2;
@@ -221,7 +221,7 @@ namespace Memorygame
             {
                 for (int i = 0; i < aantalRijen * aantalKolommen; i++)
                 {
-                    // voor elke 2 hokjes is dezelfde afbeelding nogig, berekenen met divider
+                    // voor elke 2 hokjes is dezelfde afbeelding nodig, berekenen met divider
                     int afbeeldingnr = i % 8 + 1;
                     // maak een ImageSource aan genaamd bron, vul hier het imagepad in met het adbeeldingsnummer
                     ImageSource bron = new BitmapImage(new Uri("images/" + afbeeldingnr + ".png", UriKind.Relative));
@@ -232,23 +232,30 @@ namespace Memorygame
             }
             return _gen;
         }
-        
+        /// <summary>
+        /// Maakt de de lijst van afbeeldingen random
+        /// </summary>
+        /// <returns></returns>
 
         private List<ImageSource> ShuffleList()
         {
+            // Haalt de lijst met afbeeldingen op 
             List<ImageSource> _afbeeldingenR = genImgLijst();
+            // Nieuwe lijst met willekeurige afbeeldingen
             List<ImageSource> randomList = new List<ImageSource>();
 
+            // Nieuwe random functie
             Random r = new Random();
+            // Begint de index op nul 
             int randomIndex = 0;
             while (_afbeeldingenR.Count > 0)
             {
-                randomIndex = r.Next(0, _afbeeldingenR.Count); //Choose a random object in the list
-                randomList.Add(_afbeeldingenR[randomIndex]); //add it to the new, random list
-                _afbeeldingenR.RemoveAt(randomIndex); //remove to avoid duplicates
+                randomIndex = r.Next(0, _afbeeldingenR.Count); //Kies een willekeurig object uit de lijst
+                randomList.Add(_afbeeldingenR[randomIndex]); //Voeg het toe aan de nieuwe lijst
+                _afbeeldingenR.RemoveAt(randomIndex); //Verwijderd element om duplicaten te voorkomen
             }
 
-            return randomList; //return the new random list
+            return randomList; //return de nieuwe willekeurige lijst
         }
         
         /// <summary>
@@ -258,7 +265,7 @@ namespace Memorygame
 
         public void genereerMemoryKaartjes()
         {
-            // genereer random lijst met afbeeldingen
+            // Haalt de afbeeldingen op van de random lijst
             List<ImageSource> _afbeeldingen = ShuffleList();
             // loop alle rijen af
             for (int rij = 0; rij < aantalRijen; rij++)
