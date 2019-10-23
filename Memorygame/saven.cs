@@ -14,6 +14,7 @@ namespace Memorygame
         string map = @"C:\MemoryGame\";
         string padSavBestand = "save.sav";
         string padHighscores = "memory.txt";
+        string padInstellingen = "instellingen.txt";
 
         /// <summary>
         /// Controleer of map bestaat en bestanden bestaan. Zo niet, probeer eerst aan te maken
@@ -35,6 +36,11 @@ namespace Memorygame
             {
                 try { File.Create(map + padHighscores); }
                 catch (Exception) { MessageBox.Show("Kan highscore bestand niet aanmaken. Zorg ervoor dat " + map + padHighscores + " bestaat en toegankelijk is. Opslaan is niet beschikbaar"); return false; };
+            }
+            if (!(File.Exists(map + padInstellingen)))
+            {
+                try { File.Create(map + padInstellingen); }
+                catch (Exception) { MessageBox.Show("Kan instelingen bestand niet aanmaken. Zorg ervoor dat " + map + padInstellingen + " bestaat en toegankelijk is. Opslaan is niet beschikbaar"); return false; };
             }
             return true;
         }
@@ -66,6 +72,26 @@ namespace Memorygame
         public bool controleerHighscoresBestandAanwezig()
         {
             return (File.Exists(map + padHighscores));
+        }
+
+        /// <summary>
+        /// Controleer of instellingen bestand is ingevuld
+        /// </summary>
+        /// <returns>True of False</returns>
+        public bool controleerInstellingenBestand()
+        {
+            if (new FileInfo(map + padInstellingen).Length == 0)
+                return false;
+            return true;
+        }
+
+        /// <summary>
+        /// Controleer of instellingen bestand bestaat
+        /// </summary>
+        /// <returns>True of False</returns>
+        public bool controleerInstellingenAanweig()
+        {
+            return (File.Exists(map + padInstellingen));
         }
 
         /// <summary>
@@ -235,5 +261,36 @@ namespace Memorygame
                 gegevens[i] = lines[i];
             return gegevens;
         }
+
+        /// <summary>
+        /// Sla spel op in SAV bestand
+        /// </summary>
+        /// <param name="_scoreSpeler1">Score speler 1</param>
+        /// <param name="_scoreSpeler2">Score speler 2</param>
+        /// <param name="_naamSpeler1">Naam speler 1</param>
+        /// <param name="_naamSpeler2">Naam speler 2</param>
+        /// <param name="_huidigeCombo">Huidige combo</param>
+        /// <param name="_huidigeSpeler">Huidige speler (ID)</param>
+        /// <param name="_statusKaartjes">Status kaartjes (positie)</param>
+        /// <param name="_omgedraaideKaartjes">Omgedraaide kaartjes</param>
+        public void instellingenWegschrijven(int _gridL, int _gridB, int _aantalCombo, int _turnTimer, int _turnTimerCombo)
+        {
+            File.WriteAllText(map + padInstellingen, string.Format("{0}\n{1}\n{2}\n{3}\n{4}\n", _gridL, _gridB, _aantalCombo, _turnTimer, _turnTimerCombo));
+        }
+
+        /// <summary>
+        /// Lees basisgegevens uit
+        /// </summary>
+        /// <returns>Array string met basisgegevens</returns>
+        public int[] instelingenLezen()
+        {
+            int instellingen = 5;
+            string[] lines = File.ReadAllLines(map + padInstellingen);
+            int[] gegevens = new int[instellingen];
+            for (int i = 0; i < instellingen; i++)
+                gegevens[i] = Convert.ToInt32(lines[i]);
+            return gegevens;
+        }
+
     }
 }

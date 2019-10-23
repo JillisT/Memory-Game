@@ -58,6 +58,9 @@
     <Compile Include="Highscores.xaml.cs">
       <DependentUpon>Highscores.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Instellingen.xaml.cs">
+      <DependentUpon>Instellingen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="saven.cs" />
     <Compile Include="Spel.xaml.cs">
       <DependentUpon>Spel.xaml</DependentUpon>
@@ -66,6 +69,10 @@
       <DependentUpon>SpelWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Highscores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Instellingen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

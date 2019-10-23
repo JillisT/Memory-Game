@@ -93,7 +93,8 @@ namespace Memorygame
         }
         private void Button_Settings(object sender, RoutedEventArgs e)
         {
-
+            Instellingen instellingen = new Instellingen();
+            instellingen.Show();
         }
 
         private void Button_Highscores(object sender, RoutedEventArgs e)

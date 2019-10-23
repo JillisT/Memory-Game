@@ -19,3 +19,5 @@ Y:\School 2\Memory\Memorygame\Memory-Game\Memorygame\obj\Debug\SpelWindow.g.cs
 Y:\School 2\Memory\Memorygame\Memory-Game\Memorygame\obj\Debug\SpelWindow.baml
 Y:\School 2\Memory\Memorygame\Memory-Game\Memorygame\obj\Debug\Highscores.g.cs
 Y:\School 2\Memory\Memorygame\Memory-Game\Memorygame\obj\Debug\Highscores.baml
+Y:\School 2\Memory\Memorygame\Memory-Game\Memorygame\obj\Debug\Instellingen.g.cs
+Y:\School 2\Memory\Memorygame\Memory-Game\Memorygame\obj\Debug\Instellingen.baml
