@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-Y:\School 2\Memory\Memorygame\Memory-Game\Memorygame\obj\Debug\
+C:\Users\Jillis\Documents\GitHub\Memory-Game\Memorygame\obj\Debug\
 Memorygame
 none
 false
 DEBUG;TRACE
-Y:\School 2\Memory\Memorygame\Memory-Game\Memorygame\App.xaml
-3275220148
+C:\Users\Jillis\Documents\GitHub\Memory-Game\Memorygame\App.xaml
+4-153478104
 
-9-1827191652
+101214181381
 13-1505183044
-MainWindow.xaml;Spel.xaml;SpelWindow.xaml;
+Help.xaml;MainWindow.xaml;Spel.xaml;SpelWindow.xaml;
 
-False
+True
 

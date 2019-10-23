@@ -1,0 +1,16 @@
+﻿<Window x:Class="Memorygame.Help"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Memorygame"
+        mc:Ignorable="d"
+        Title="Help" Height="450" Width="800">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="95,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="85" Width="565"><Run FontWeight="Bold" Text="Continue - "/><Run Text="Hervat een opgeslagen spel."/><LineBreak/><Run FontWeight="Bold" Text="New game - "/><Run Text="Start een nieuw spel."/><LineBreak/><Run FontWeight="Bold" Text="Highscores "/><Run Text="- Bekijk wie de hoogste scores heeft behaald."/><LineBreak/><Run FontWeight="Bold" Text="Settings - "/><Run Text="Pas de instellingen van het spel aan."/><LineBreak/><Run FontWeight="Bold" Text="Exit - "/><Run Text="Verlaat het spel."/></TextBlock>
+        <Label Content="Menu " HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.909,0.577"/>
+        <Label Content="Spel" HorizontalAlignment="Left" Margin="20,109,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="95,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="151" Width="405"><Run Text="Voer eerst de twee namen in. "/><LineBreak/><Run Text="Druk op een afbeelding om deze te openen, raad vervolgens waar het andere kaartje is. "/><LineBreak/><Run Text="Bij een fout mag de volgende speler."/><LineBreak/><Run Text="Druk op "/><Run FontWeight="Bold" Text="reset "/><Run Text="om opniew te beginnen."/><LineBreak/><Run Text="Druk op "/><Run FontWeight="Bold" Text="opslaan "/><Run Text="om het spel op te slaan. "/></TextBlock>
+
+    </Grid>
+</Window>

@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Help.xaml.cs">
+      <DependentUpon>Help.xaml</DependentUpon>
+    </Compile>
     <Compile Include="saven.cs" />
     <Compile Include="Spel.xaml.cs">
       <DependentUpon>Spel.xaml</DependentUpon>
@@ -62,6 +65,10 @@
     <Compile Include="SpelWindow.xaml.cs">
       <DependentUpon>SpelWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Help.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -121,6 +128,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="vraagteken.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Help.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
