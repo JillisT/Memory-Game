@@ -18,12 +18,13 @@
         <TextBlock Margin="600,0,0,0" Width="300" Height="200" MaxHeight="200" HorizontalAlignment="Left" TextAlignment="Center">
             <Run x:Name="label_Score" Text="Score" FontSize="16"></Run>
             <LineBreak/>
-            <Run x:Name="label_Score_namen" Text="Score" FontSize="16"></Run>
+            <Run x:Name="label_Score_namen" Text="Hier komen namen" FontSize="16"></Run>
             <LineBreak/>
             <Run x:Name="label_Score_score" Text="{Binding Path=huidigeScore}" FontSize="16"></Run>
             <LineBreak/>
-            <Run x:Name="label_Score_combotekst" Text="De multiplier staat op: " FontSize="16"></Run>
-            <Run x:Name="label_Score_xombo" Text="{Binding Path=huidigeCombo}" FontSize="16"></Run>
+            <Run x:Name="label_combo_te_gaan" Text="{Binding Path=aantalComboTeGaanString}" FontSize="16"></Run>
+            <LineBreak/>
+            <Run x:Name="label_Score_xombo" Text="{Binding Path=huigeMultiplierString}" FontSize="16"></Run>
         </TextBlock>
         <Grid x:Name="MemoryGrid" Width="1200" Height="700" Margin="0,100,0,0"></Grid>
     </Canvas>

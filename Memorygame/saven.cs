@@ -60,6 +60,8 @@ namespace Memorygame
         /// <returns>True of False</returns>
         public bool controleerHighscoresBestand()
         {
+            if (!controleerHighscoresBestandAanwezig())
+                return false;
             if (new FileInfo(map + padHighscores).Length == 0)
                 return false;
             return true;
@@ -80,6 +82,8 @@ namespace Memorygame
         /// <returns>True of False</returns>
         public bool controleerInstellingenBestand()
         {
+            if (!controleerHighscoresBestandAanwezig())
+                return false;
             if (new FileInfo(map + padInstellingen).Length == 0)
                 return false;
             return true;
@@ -178,9 +182,9 @@ namespace Memorygame
         /// <param name="_huidigeSpeler">Huidige speler (ID)</param>
         /// <param name="_statusKaartjes">Status kaartjes (positie)</param>
         /// <param name="_omgedraaideKaartjes">Omgedraaide kaartjes</param>
-        public void savebestandWegscrijven(int _scoreSpeler1, int _scoreSpeler2, string _naamSpeler1, string _naamSpeler2, int _huidigeCombo, int _huidigeSpeler, List<String> _statusKaartjes, List<String> _omgedraaideKaartjes)
+        public void savebestandWegscrijven(int _scoreSpeler1, int _scoreSpeler2, string _naamSpeler1, string _naamSpeler2, int _huidigeCombo, int _huidigeSpeler, List<String> _statusKaartjes, List<String> _omgedraaideKaartjes, int _rijen, int _kolommen, int _comboSetting, int _aantalKaartjesOver, int _multiplier)
         {
-                File.WriteAllText(map + padSavBestand, string.Format("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n", _scoreSpeler1, _scoreSpeler2, _naamSpeler1, _naamSpeler2, _huidigeCombo, _huidigeSpeler));
+                File.WriteAllText(map + padSavBestand, string.Format("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n{7}\n{8}\n{9}\n{10}\n", _scoreSpeler1, _scoreSpeler2, _naamSpeler1, _naamSpeler2, _huidigeCombo, _huidigeSpeler, _rijen, _kolommen, _comboSetting, _aantalKaartjesOver, _multiplier));
                 File.AppendAllText(map + padSavBestand, "KAARTJES_POSITIE\n");
                 foreach (String _kaartje in _statusKaartjes)
                 {
@@ -254,7 +258,7 @@ namespace Memorygame
         /// <returns>Array string met basisgegevens</returns>
         public string[] basisGegevens()
         {
-            int aantalBasisRegels = 6;
+            int aantalBasisRegels = 11;
             string[] lines = File.ReadAllLines(map + padSavBestand);
             string[] gegevens = new string[aantalBasisRegels];
             for (int i = 0; i < aantalBasisRegels; i++)

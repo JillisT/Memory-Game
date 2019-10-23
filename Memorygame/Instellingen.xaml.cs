@@ -84,6 +84,11 @@ namespace Memorygame
                     value = (breedte * lengte) / 2;
                     MessageBox.Show("Je hebt een grid van " + breedteLengte + ". Hierin zijn maximaal " + Convert.ToString((breedte * lengte) / 2) + " combinatie's mogelijk.");
                 }
+                if (value * turnTimeComboSeconden > turnTimeSeconden)
+                {
+                    value = turnTimeSeconden / turnTimeComboSeconden;
+                    MessageBox.Show("Er zijn maximaal " + Convert.ToString(value) + " combo's mogelijk om " + Convert.ToString(turnTimeComboSeconden) + " seconden van de tijd af te trekken per juiste combo.");
+                }
                 _aantalSets = value;
                 PropertyGewijzigd();
                 aantalSetsString = Convert.ToString(value) + " paar";
@@ -107,6 +112,12 @@ namespace Memorygame
             {
                 if (value < 1)
                     value = 1;
+                if (value < aantalSets * turnTimeComboSeconden)
+                {
+                    value = aantalSets * turnTimeComboSeconden;
+                    MessageBox.Show("Er zijn minimaal " + Convert.ToString(value) + " seconden nodig om per combo " + Convert.ToString(turnTimeComboSeconden) + " seconden van de tijd af te trekken.");
+                }
+
                 _turnTimeSeconden = value;
                 PropertyGewijzigd();
                 turnTimerString = Convert.ToString(_turnTimeSeconden) + " seconden";
@@ -130,8 +141,12 @@ namespace Memorygame
             {
                 if (value < 0)
                     value = 0;
-                if (value > turnTimeSeconden - 1)
-                    value = turnTimeSeconden - 1;
+                if ((value * aantalSets) > turnTimeSeconden)
+                {
+                    value = turnTimeSeconden / aantalSets;
+                    MessageBox.Show("Er kunnen maximaal " + Convert.ToString(value) + " seconden per combo van je tijd afgaan als je timer op " + Convert.ToString(turnTimeSeconden) + " seconden en het aantal te raden combo's op " + Convert.ToString(aantalSets) + " staat");
+                }
+                    
                 _turnTimeComboSeconden = value;
                 PropertyGewijzigd();
                 turnTimerComboString = Convert.ToString(_turnTimeComboSeconden) + " seconden eraf per goede combo";
@@ -158,6 +173,11 @@ namespace Memorygame
 
         private void changeBreedteLengte(int _breedte, int _lengte)
         {
+            if ((_breedte * _lengte) / 2 < aantalSets )
+            {
+                MessageBox.Show("Dit Grid kan niet gekozen worden in combinatie met het aantal minimale te raden combo's van " + Convert.ToString(aantalSets));
+                return;
+            }
             breedte = _breedte;
             lengte = _lengte;
             breedteLengte = Convert.ToString(breedte) + " * " + Convert.ToString(lengte);
@@ -198,6 +218,17 @@ namespace Memorygame
         private void pasSecondenAanKlik(object sender, RoutedEventArgs e)
         {
             turnTimerString = Convert.ToString(turnTimeSeconden) + " seconden";
+        }
+
+        public int[] ophalen()
+        {
+            int[] _return = new int[5];
+            _return[0] = breedte;
+            _return[1] = lengte;
+            _return[2] = aantalSets;
+            _return[3] = turnTimeSeconden;
+            _return[4] = turnTimeComboSeconden;
+            return _return;
         }
     }
 }

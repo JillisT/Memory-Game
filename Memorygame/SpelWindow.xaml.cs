@@ -32,7 +32,7 @@ namespace Memorygame
                 // er moet een spel worden hervat. Lees basisgegevens uit, start spel direct door met parameters 
                 saven ophalen = new saven();
                 string[] _basisGegevens = ophalen.basisGegevens();
-                Spel spel = new Spel(Convert.ToInt32(_basisGegevens[0]), Convert.ToInt32(_basisGegevens[1]), _basisGegevens[2], _basisGegevens[3], Convert.ToInt32(_basisGegevens[4]), Convert.ToInt32(_basisGegevens[5]), true);
+                Spel spel = new Spel(Convert.ToInt32(_basisGegevens[0]), Convert.ToInt32(_basisGegevens[1]), _basisGegevens[2], _basisGegevens[3], Convert.ToInt32(_basisGegevens[4]), Convert.ToInt32(_basisGegevens[5]), true, Convert.ToInt32(_basisGegevens[6]), Convert.ToInt32(_basisGegevens[7]), Convert.ToInt32(_basisGegevens[8]), Convert.ToInt32(_basisGegevens[9]), Convert.ToInt32(_basisGegevens[10]));
                 this.Content = spel;
             }
         }
@@ -65,8 +65,11 @@ namespace Memorygame
 
         private void Spel_starten(object sender, RoutedEventArgs e)
         {
+            // haal instellingen op
+            Instellingen _instellingen = new Instellingen();
+            int[] _instellingenArray = _instellingen.ophalen();
             // start een nieuw spel
-            Spel spel = new Spel(0, 0, _Speler1, _Speler1, 1, 1, false);
+            Spel spel = new Spel(0, 0, _Speler1, _Speler2, 1, 1, false, _instellingenArray[0], _instellingenArray[1], _instellingenArray[2], 0, 1);
             this.Content = spel;
         }
 
