@@ -129,5 +129,12 @@
   <ItemGroup>
     <Resource Include="vraagteken.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="medaille\1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="medaille\2.png" />
+    <Resource Include="medaille\3.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
