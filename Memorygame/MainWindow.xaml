@@ -8,11 +8,16 @@
         Title="MainWindow" Height="800" Width="1200" WindowStyle="ThreeDBorderWindow">
     <Grid Background="Black">
         <TextBlock x:Name="Memory_game" Margin="0,0,0,0" TextWrapping="Wrap" HorizontalAlignment="Center" Width="400" FontSize="36" Foreground="#FF1B1B1B" TextAlignment="Center" FontWeight="Bold" Background="#FF5151DE" Height="100" VerticalAlignment="Top"><Run Text="Memory game "/><LineBreak/><Run Text="Groep 19"/></TextBlock>
-        <Button x:Name="Continue" Content="Continue" Margin="0,232,0,0" VerticalAlignment="Top" Height="60" Click="Button_Continue" Background="#FF5151DE" FontSize="36" RenderTransformOrigin="1,0" BorderBrush="Black" Foreground="White"/>
-        <Button x:Name="New_Game" Content="New Game" Margin="0,334,0,0" VerticalAlignment="Top" Height="60" Click="Button_New_Game" Background="#FF5151DE" FontSize="36" RenderTransformOrigin="1,0" BorderBrush="Black" Foreground="White"/>
-        <Button x:Name="Highscores" Content="Highscores" Margin="0,428,0,0" VerticalAlignment="Top" Height="60" Click="Button_Highscores" Background="#FF5151DE" FontSize="36" RenderTransformOrigin="1,0" BorderBrush="Black" Foreground="White" AutomationProperties.HelpText="Bekijk de highscores"/>
-        <Button x:Name="Settings" Content="Settings" Margin="0,522,0,0" VerticalAlignment="Top" Height="60" Click="Button_Settings" Background="#FF5151DE" FontSize="36" RenderTransformOrigin="1,0" BorderBrush="Black" Foreground="White" AutomationProperties.HelpText="Bepaal de settings"/>
-        <Button x:Name="Exit" Content="Exit" Margin="0,620,0,0" VerticalAlignment="Top" Height="60" Click="Button_Exit" Background="#FF5151DE" FontSize="36" RenderTransformOrigin="1,0" BorderBrush="Black" Foreground="White" AutomationProperties.HelpText="Sluit de game"/>
+        <Button x:Name="Continue" Content="Continue" Margin="300,232,300,0" VerticalAlignment="Top" Height="60" Click="Button_Continue" Background="#FF5151DE" FontSize="36" RenderTransformOrigin="1,0" BorderBrush="Black" Foreground="White"/>
+        <Button x:Name="New_Game" Content="New Game" Margin="300,334,300,0" VerticalAlignment="Top" Height="60" Click="Button_New_Game" Background="#FF5151DE" FontSize="36" RenderTransformOrigin="1,0" BorderBrush="Black" Foreground="White"/>
+        <Button x:Name="Highscores" Content="Highscores" Margin="300,428,300,0" VerticalAlignment="Top" Height="60" Click="Button_Highscores" Background="#FF5151DE" FontSize="36" RenderTransformOrigin="1,0" BorderBrush="Black" Foreground="White" AutomationProperties.HelpText="Bekijk de highscores"/>
+        <Button x:Name="Settings" Content="Settings" Margin="300,522,300,0" VerticalAlignment="Top" Height="60" Click="Button_Settings" Background="#FF5151DE" FontSize="36" RenderTransformOrigin="1,0" BorderBrush="Black" Foreground="White" AutomationProperties.HelpText="Bepaal de settings"/>
+        <Button x:Name="Exit" Content="Exit" Margin="300,620,300,0" VerticalAlignment="Top" Height="60" Click="Button_Exit" Background="#FF5151DE" FontSize="36" RenderTransformOrigin="1,0" BorderBrush="Black" Foreground="White" AutomationProperties.HelpText="Sluit de game"/>
+        <Button x:Name="Help" Content="" HorizontalAlignment="Right" Margin="0,30,87,0" VerticalAlignment="Top" Width="70" Height="55" Click="Help_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="images/Help.png"/>
+            </Button.Background>
+        </Button>
 
     </Grid>
 </Window>

@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Help.xaml.cs">
+      <DependentUpon>Help.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Highscores.xaml.cs">
       <DependentUpon>Highscores.xaml</DependentUpon>
     </Compile>
@@ -68,6 +71,10 @@
     <Compile Include="SpelWindow.xaml.cs">
       <DependentUpon>SpelWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Help.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Highscores.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -142,6 +149,9 @@
   <ItemGroup>
     <Resource Include="medaille\2.png" />
     <Resource Include="medaille\3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Help.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

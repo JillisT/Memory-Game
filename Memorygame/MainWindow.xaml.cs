@@ -104,5 +104,10 @@ namespace Memorygame
             Highscores highscores = new Highscores();
             highscores.Show();
         }
+        private void Help_Click(object sender, RoutedEventArgs e)
+        {
+            Help help = new Help();
+            help.Show();
+        }
     }
 }

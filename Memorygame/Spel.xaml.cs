@@ -304,13 +304,39 @@ namespace Memorygame
             }
             return _gen;
         }
+
+        /// <summary>
+        /// Maakt de de lijst van afbeeldingen random
+        /// </summary>
+        /// <returns></returns>
+
+        private List<ImageSource> ShuffleList()
+        {
+            // Haalt de lijst met afbeeldingen op 
+            List<ImageSource> _afbeeldingenR = genImgLijst();
+            // Nieuwe lijst met willekeurige afbeeldingen
+            List<ImageSource> randomList = new List<ImageSource>();
+
+            // Nieuwe random functie
+            Random r = new Random();
+            // Begint de index op nul 
+            int randomIndex = 0;
+            while (_afbeeldingenR.Count > 0)
+            {
+                randomIndex = r.Next(0, _afbeeldingenR.Count); //Kies een willekeurig object uit de lijst
+                randomList.Add(_afbeeldingenR[randomIndex]); //Voeg het toe aan de nieuwe lijst
+                _afbeeldingenR.RemoveAt(randomIndex); //Verwijderd element om duplicaten te voorkomen
+            }
+
+            return randomList; //return de nieuwe willekeurige lijst
+        }
         /// <summary>
         /// Genereer MemoryKaartjes
         /// </summary>
         public void genereerMemoryKaartjes()
         {
             // genereer random lijst met afbeeldingen
-            List<ImageSource> _afbeeldingen = genImgLijst();
+            List<ImageSource> _afbeeldingen = ShuffleList();
             // loop alle rijen af
             for (int rij = 0; rij < aantalRijen; rij++)
             {

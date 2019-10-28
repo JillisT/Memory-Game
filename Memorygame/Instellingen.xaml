@@ -16,7 +16,7 @@
                 <Button x:Name="vijf" Width="100" Height="40" Content="5 * 5" HorizontalAlignment="Center" Margin="150,0,0,0" Click="setKlik5" Background="#FF5151DE" FontSize="20" Foreground="White"></Button>
                 <Button x:Name="zes" Width="100" Height="40" Content="6 * 6" HorizontalAlignment="Center" Margin="300,0,0,0" Click="setKlik6" Background="#FF5151DE" FontSize="20" Foreground="White"></Button>
             </Canvas>
-            <Label Content="Aantal sets goed voor toekennen punten" Foreground="White" FontSize="24" x:Name="aantalSetss" Margin="0,110,0,0" HorizontalAlignment="Center" Height="40" VerticalAlignment="Top" />
+            <Label Content="Aantal sets goed voor toekennen punten" Foreground="White" FontSize="24" x:Name="aantalSetss" Margin="127,120,131,0" HorizontalAlignment="Center" Height="40" VerticalAlignment="Top" />
             <Label Content="{Binding turnTimerString}" Foreground="#FF5151DE" FontSize="24" x:Name="sss" HorizontalAlignment="Center" Margin="0,250,0,0" VerticalAlignment="Top" />
             <Canvas Height="45" Width="170" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,185,0,0">
                 <TextBox Text="{Binding aantalSets}" Margin="0,0,0,0" Height="40" Width="50" FontSize="20" Foreground="#FF5151DE" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
