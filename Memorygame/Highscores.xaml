@@ -7,8 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="800" WindowStyle="ThreeDBorderWindow">
     <Grid Background="Black">
-        <TextBlock x:Name="Memory_game" Margin="0,0,0,0" TextWrapping="Wrap" HorizontalAlignment="Center" Width="400" FontSize="36" Foreground="#FF1B1B1B" TextAlignment="Center" FontWeight="Bold" Background="#FF5151DE" Height="100" VerticalAlignment="Top" Text="Highscores"/>
-        <Grid x:Name="lijst" Width="700" Margin="53,137,42,118.5"/>
-        <Button x:Name="Exit" Content="Exit" Margin="0,590,0,0" VerticalAlignment="Top" Height="60" Click="Button_Exit" Background="#FF5151DE" FontSize="36" RenderTransformOrigin="1,0" BorderBrush="Black" Foreground="White" AutomationProperties.HelpText="Sluit de game"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="115*"/>
+            <ColumnDefinition Width="677*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="Memory_game" Margin="81,25,196,0" TextWrapping="Wrap" HorizontalAlignment="Center" Width="400" FontSize="36" Foreground="White" TextAlignment="Center" FontWeight="Bold" Background="#FF5151DE" Height="60" VerticalAlignment="Top" Grid.Column="1"><Run FontWeight="Normal" Text="Highscores"/></TextBlock>
+        <Grid x:Name="lijst" Width="700" Margin="53,137,39,119" Grid.ColumnSpan="2"/>
+        <Button x:Name="Exit" Content="Exit" Margin="185,590,300,0" VerticalAlignment="Top" Height="60" Click="Button_Exit" Background="#FF5151DE" FontSize="36" RenderTransformOrigin="1,0" BorderBrush="Black" Foreground="White" AutomationProperties.HelpText="Sluit de game" Grid.Column="1"/>
     </Grid>
 </Window>

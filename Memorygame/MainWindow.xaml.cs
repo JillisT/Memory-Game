@@ -71,13 +71,13 @@ namespace Memorygame
             if (savAanwezig)
                 // sav aanwezig, vragen om spel te herstarten of hervatten
             {
-                MessageBoxResult m = MessageBox.Show("Wil je het opgeslagen spel verder spelen? Indien nee, dan wordt het voorgaande spel gewist", "Opgeslagen bestand gevonden.", MessageBoxButton.YesNo);
-                if (m == MessageBoxResult.Yes)
+                MessageBoxResult m = MessageBox.Show("Wil je een nieuw spel starten? Indien ja, dan wordt het voorgaande spel gewist", "Opgeslagen bestand gevonden.", MessageBoxButton.YesNo);
+                if (m == MessageBoxResult.No)
                 {
                     SpelWindow spelwindow = new SpelWindow(true);
                     spelwindow.Show();
                 }
-                else if (m == MessageBoxResult.No)
+                else if (m == MessageBoxResult.Yes)
                 {
                     SpelWindow spelwindow = new SpelWindow(false);
                     spelwindow.Show();
@@ -99,10 +99,15 @@ namespace Memorygame
 
         private void Button_Highscores(object sender, RoutedEventArgs e)
         {
-            if (!(highscoresAanwezig))
+            if (!(highscoresAanwezig)) // Als er geen highscores zijn
+            {
                 MessageBox.Show("Highscores zijn niet beschikbaar");
-            Highscores highscores = new Highscores();
-            highscores.Show();
+            }
+            else // En anders toon scherm met highscores
+            {
+                Highscores highscores = new Highscores();
+                highscores.Show();
+            }
         }
         private void Help_Click(object sender, RoutedEventArgs e)
         {
