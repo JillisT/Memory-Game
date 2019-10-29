@@ -460,17 +460,17 @@ namespace Memorygame
             }
         }
 
-        private void FormMain_KeyDown(object sender, KeyEventArgs e)
-        {
-            Image kaart = (Image)sender;
-            if (e.KeyData == (Keys.A | Keys.D1)) 
-            {
-                Grid.SetColumn(kaart, 1);
-                Grid.SetRow(kaart, 1);
-            }
+        //private void FormMain_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    Image kaart = (Image)sender;
+        //    if (e.KeyData == (Keys.A | Keys.D1)) 
+        //    {
+        //        var rij = 1;
+        //        var kolom = 1;
+        //    }
 
             
-        }
+        //}
 
 
 
