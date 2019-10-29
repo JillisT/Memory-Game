@@ -15,6 +15,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Forms;
+using MessageBox = System.Windows.Forms.MessageBox;
+using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 
 namespace Memorygame
 {
@@ -360,6 +363,7 @@ namespace Memorygame
                             kaartje.Source = new BitmapImage(new Uri("Vraagteken.png", UriKind.Relative));
                             // voeg event toe aan kaartje. Bij klik op kaartje voer 'kaartklik' uit
                             kaartje.MouseDown += new MouseButtonEventHandler(kaartklik);
+                            
                         }
                     }
                     // als het een nieuw spel is, voeg de kaartjes dan normaal toe allemaal gesloten en met MouseDown event
@@ -455,6 +459,20 @@ namespace Memorygame
                 aantalComboTeGaan = hoeveelComboSetting;
             }
         }
+
+        private void FormMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            Image kaart = (Image)sender;
+            if (e.KeyData == (Keys.A | Keys.D1)) 
+            {
+                Grid.SetColumn(kaart, 1);
+                Grid.SetRow(kaart, 1);
+            }
+
+            
+        }
+
+
 
         /// <summary>
         /// Initialiseer Grid a.d.v. aantal rijen en kolommen
