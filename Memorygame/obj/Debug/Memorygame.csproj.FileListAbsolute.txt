@@ -46,3 +46,6 @@ C:\Users\Jillis\Documents\GitHub\Memory-Game\Memorygame\obj\Debug\Memorygame.exe
 C:\Users\Jillis\Documents\GitHub\Memory-Game\Memorygame\obj\Debug\Memorygame.pdb
 C:\Users\Jillis\Documents\GitHub\Memory-Game\Memorygame\obj\Debug\Help.g.cs
 C:\Users\Jillis\Documents\GitHub\Memory-Game\Memorygame\obj\Debug\Help.baml
+Y:\School 2\Memory\Memorygame\Memory-Game\Memorygame\obj\Debug\Help.g.cs
+Y:\School 2\Memory\Memorygame\Memory-Game\Memorygame\obj\Debug\Help.baml
+Y:\School 2\Memory\Memorygame\Memory-Game\Memorygame\bin\Debug\Memorygame.xml

@@ -1,0 +1,436 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Memorygame</name>
+    </assembly>
+    <members>
+        <member name="T:Memorygame.Help">
+            <summary>
+            Interaction logic for Help.xaml
+            </summary>
+            <summary>
+            Help
+            </summary>
+        </member>
+        <member name="M:Memorygame.Help.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Memorygame.Highscores">
+            <summary>
+            Interaction logic for Highscores.xaml
+            </summary>
+            <summary>
+            Highscores
+            </summary>
+        </member>
+        <member name="M:Memorygame.Highscores.highscoreUitlezen">
+            <summary>
+            Lees Highscores uit
+            </summary>
+            <returns>Dictionary met naam en score</returns>
+        </member>
+        <member name="M:Memorygame.Highscores.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Memorygame.Instellingen">
+            <summary>
+            Interaction logic for Instellingen.xaml
+            </summary>
+            <summary>
+            Instellingen
+            </summary>
+        </member>
+        <member name="M:Memorygame.Instellingen.#ctor(System.String)">
+            <summary>
+            Controleerd of instellingenbestand is ingevuld en leest deze in in _instellingen stringArray.
+            Indien bestand niet bestaat worden standaard instellingen toegepast.
+            </summary>
+        </member>
+        <member name="M:Memorygame.Instellingen.#ctor">
+            <summary>
+            Indien geen bestanden aanwezig, geef standaard instellingen mee
+            </summary>
+        </member>
+        <member name="P:Memorygame.Instellingen.breedteLengte">
+            <summary>
+            String met hierin Breedte * Lengte verwerkt tbv instellingenscherm.
+            String wordt gewijzigd door changeBreedteLengte functie
+            </summary>
+        </member>
+        <member name="P:Memorygame.Instellingen.aantalSetsString">
+            <summary>
+            String met aantal Sets tbv instellingen scherm
+            Wordt automatisch gewijzigd voor aantalSets int
+            </summary>
+        </member>
+        <member name="P:Memorygame.Instellingen.aantalSets">
+            <summary>
+            Wijzig het aantal te raden sets
+            Verifieer eerst of het aantal sets geldig is, anders foutmelding weergeven met verdere instructies
+            Maak daarna string aan voor aantalSetsString tvb instellingenscherm
+            </summary>
+        </member>
+        <member name="P:Memorygame.Instellingen.thema">
+            <summary>
+            String met hierin het thema
+            </summary>
+        </member>
+        <member name="M:Memorygame.Instellingen.Opslaan(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Functie als er op instellingen opslaan knop wordt geklikt.
+            schijf instellingen weg in volgorde: breedte, lengte, aantalSets, Thema
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Memorygame.Instellingen.changeBreedteLengte(System.Int32,System.Int32)">
+            <summary>
+            Verander breedte en lengte variabelen en pas string aan tbv instellingenscherm
+            </summary>
+            <param name="_breedte">Breedte grid</param>
+            <param name="_lengte">Lengte Grid</param>
+        </member>
+        <member name="M:Memorygame.Instellingen.PropertyGewijzigd(System.String)">
+            <summary>
+            Update property als content in variabele is veranderd
+            </summary>
+            <param name="propertyName">De property met een nieuwe waarde</param>
+        </member>
+        <member name="M:Memorygame.Instellingen.ophalen">
+            <summary>
+            Genereer string met hierin de instellingen
+            </summary>
+            <returns>string Array in volgorde: [0] = breedte [1] = lengte [2] = aantal sets te raden [3] = thema</returns>
+        </member>
+        <member name="M:Memorygame.Instellingen.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Memorygame.saven">
+            <summary>
+            Testclass saven
+            </summary>
+        </member>
+        <member name="M:Memorygame.saven.controleerMap">
+            <summary>
+            Controleer of map bestaat en bestanden bestaan. Zo niet, probeer eerst aan te maken
+            </summary>
+            <returns>Bool of map en bestanden bestaan</returns>
+        </member>
+        <member name="M:Memorygame.saven.controleerSavBestandAanwezig">
+            <summary>
+            Controleer of Sav bestand bestaat
+            </summary>
+            <returns>True of False</returns>
+        </member>
+        <member name="M:Memorygame.saven.controleerHighscoresBestand">
+            <summary>
+            Controleer of highscore bestand is ingevuld
+            </summary>
+            <returns>True als scores aanwezig zijn, false als er nog geen scores zijn</returns>
+        </member>
+        <member name="M:Memorygame.saven.controleerHighscoresBestandAanwezig">
+            <summary>
+            Controleer of highscore bestand bestaat
+            </summary>
+            <returns>True of False</returns>
+        </member>
+        <member name="M:Memorygame.saven.controleerInstellingenBestand">
+            <summary>
+            Controleer of instellingen bestand is ingevuld
+            </summary>
+            <returns>True of False</returns>
+        </member>
+        <member name="M:Memorygame.saven.controleerInstellingenAanweig">
+            <summary>
+            Controleer of instellingen bestand bestaat
+            </summary>
+            <returns>True of False</returns>
+        </member>
+        <member name="M:Memorygame.saven.controleerSav">
+            <summary>
+            Controleer of SAV bestand leeg is of is ingevuld
+            </summary>
+            <returns>True als ingevuld, false als leeg</returns>
+        </member>
+        <member name="M:Memorygame.saven.resetSav">
+            <summary>
+            Leeg het SAV bestand
+            </summary>
+        </member>
+        <member name="M:Memorygame.saven.highscoreWegscrijven(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Sla highscores op.
+            Leest eerst de huidige scores uit, rangschikt de huidige scores en de nieuw scores, verwijderd alle scores boven de 10e plek, schijft gerangschikte lijst terug naar highscore bestand
+            </summary>
+            <param name="_scoreSpeler1">Score speler 1</param>
+            <param name="_scoreSpeler2">Score speler 2</param>
+            <param name="_naamSpeler1">Naam speler 1</param>
+            <param name="_naamSpeler2">Naam speler 2</param>
+        </member>
+        <member name="M:Memorygame.saven.highscoreUitlezen">
+            <summary>
+            Lees Highscores uit
+            </summary>
+            <returns>Dictionary met naam en score</returns>
+        </member>
+        <member name="M:Memorygame.saven.savebestandWegscrijven(System.Int32,System.Int32,System.String,System.String,System.Int32,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sla spel op in SAV bestand
+            Volgorde: [0]Score speler 1, [1]Score speler 2, [2]Naam speler 1, [3]Naam speler 2, [4]huidige speler, [5]Rijen, [6]Kolommen, [7]Aantal sets instellingen, [8]Aantal kaarten over, [9]Huidige multiplier
+            Daarna lisjt met kaartjes positie, gevolgd door lijst met omgedraaide kaartjes
+            </summary>
+            <param name="_scoreSpeler1">Score speler 1</param>
+            <param name="_scoreSpeler2">Score speler 2</param>
+            <param name="_naamSpeler1">Naam speler 1</param>
+            <param name="_naamSpeler2">Naam speler 2</param>
+            <param name="_huidigeSpeler">Huidige speler (in ID)</param>
+            <param name="_positieKaartjes">Lijst met positie kaartjes op volgorde</param>
+            <param name="_omgedraaideKaartjes">Lijst met reeds omgedraaide kaartjes</param>
+            <param name="_rijen">Aantal rijen</param>
+            <param name="_kolommen">Aantal kolommen</param>
+            <param name="_comboSetting">Instelling hoeveel sets te raden</param>
+            <param name="_aantalKaartjesOver">Hoeveel kaartjes zijn er nog over in grid</param>
+            <param name="_multiplier">Huidige multiplier</param>
+        </member>
+        <member name="M:Memorygame.saven.kaartjesLijst">
+            <summary>
+            Lees kaartjes lijst uit (positie) vanuit SAV bestan
+            </summary>
+            <returns>String lijst met kaartjes op volgorde</returns>
+        </member>
+        <member name="M:Memorygame.saven.omgedraaideKaartjes">
+            <summary>
+            Lees omgedraaide kaartjes uit vanuit SAV bestan
+            </summary>
+            <returns>Lijst met tags omgedraaide kaartjes</returns>
+        </member>
+        <member name="M:Memorygame.saven.basisGegevens">
+            <summary>
+            Lees basisgegevens uit vanuit Sav bestand.
+            </summary>
+            <returns>Array string met basisgegevens.
+            Volgorde: [0]Score speler 1, [1]Score speler 2, [2]Naam speler 1, [3]Naam speler 2, [4]huidige speler, [5]Rijen, [6]Kolommen, [7]Aantal sets instellingen, [8]Aantal kaarten over, [9]Huidige multiplier</returns>
+        </member>
+        <member name="M:Memorygame.saven.instellingenWegschrijven(System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            Sla instellingen op in volgorde: [0]Rijen, [1]Lengte [2]aantal Sets [3]Thema
+            </summary>
+            <param name="_gridL">Rijen</param>
+            <param name="_gridB">Lengte</param>
+            <param name="_aantalCombo">aantal Sets</param>
+            <param name="_thema">Thema</param>
+        </member>
+        <member name="M:Memorygame.saven.instelingenLezen">
+            <summary>
+            Lees instellingen uit
+            </summary>
+            <returns>Array string in volgorde: [0]Rijen, [1]Lengte [2]aantal Sets [3]Thema</returns>
+        </member>
+        <member name="T:Memorygame.Spel">
+            <summary>
+            Spel
+            </summary>
+        </member>
+        <member name="P:Memorygame.Spel.huidigeSpeler">
+            <summary>
+            int huidigeSpeler wijzigen
+            </summary>
+        </member>
+        <member name="P:Memorygame.Spel.naamHuidigeSpeler">
+            <summary>
+            String naamHuidigeSpeler wijzigen
+            </summary>
+        </member>
+        <member name="P:Memorygame.Spel.huidigeScore">
+            <summary>
+            huidigeScore string wijzigen
+            </summary>
+        </member>
+        <member name="P:Memorygame.Spel.aantalComboTeGaan">
+            <summary>
+            Aantal combo's te gaan int wijzigen
+            </summary>
+        </member>
+        <member name="P:Memorygame.Spel.aantalComboTeGaanString">
+            <summary>
+            Huidge Combo's te gaan string wijzigen
+            </summary>
+        </member>
+        <member name="P:Memorygame.Spel.huidigeMultiplier">
+            <summary>
+            Aantal Multiplier
+            </summary>
+        </member>
+        <member name="P:Memorygame.Spel.huigeMultiplierString">
+            <summary>
+            Huidge multiplier string
+            </summary>
+        </member>
+        <member name="P:Memorygame.Spel.aantalKaartjes">
+            <summary>
+            Aantal kaartjes int wijzigen. Check direct voor winnaar als kaartjes 0 is
+            </summary>
+        </member>
+        <member name="M:Memorygame.Spel.puntenWijzigen(System.Int32,System.Int32)">
+            <summary>
+            Wijzig punten
+            </summary>
+            <param name="_voorSpeler">ID nummer te wijzigen speler. Gebruik ID 0 om scores te resetten</param>
+            <param name="_aantalPunten">Het aantal op te tellen punten</param>
+        </member>
+        <member name="M:Memorygame.Spel.#ctor(System.Int32,System.Int32,System.String,System.String,System.Int32,System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            Start het spel
+            </summary>
+            <param name="_beginscoreSpeler1">Beginscore speler 1, gebruik 0 bij nieuw spel</param>
+            <param name="_beginscoreSpeler2">Beginscore speler 2, gebruik 0 bij nieuw spel</param>
+            <param name="_naamSpeler1">Naam speler 1</param>
+            <param name="_naamSpeler2">naam speler 2</param>
+            <param name="_huidigeSpeler">huidige speler, gebruik 1 indien nieuw spel</param>
+            <param name="_spelHervatten">betreft het een herstart spel?</param>
+            <param name="_breedte">aantal kolommen</param>
+            <param name="_lengte">aantal Rijen</param>
+            <param name="_aantalCombo">aantal te raden combo's voor punt</param>
+            <param name="_aantalKaartjes">Aantal kaartjes dat nog over is. Gebruik voor nieuw spel hier een 0</param>
+            <param name="_multiplier">Multiplier status, geef 1 in bij nieuw spel</param>
+            <param name="_thema">Thema. Keuze: Smiley's, Dieren of Voedsel</param>
+        </member>
+        <member name="M:Memorygame.Spel.genImgLijst">
+            <summary>
+            Genereer afbeeldingen lijst aan de hand van aantal kaartjes en thema
+            </summary>
+            <returns>Geeft lijst terug met ImageSources</returns>
+        </member>
+        <member name="M:Memorygame.Spel.genereerMemoryKaartjes">
+            <summary>
+            Genereer MemoryKaartjes
+            </summary>
+        </member>
+        <member name="M:Memorygame.Spel.kaartklik(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Actie bij klikken op memorykaartje
+            </summary>
+            <param name="sender">Sender</param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Memorygame.Spel.initialiseerGrid">
+            <summary>
+            Initialiseer Grid a.d.v. aantal rijen en kolommen
+            </summary>
+        </member>
+        <member name="M:Memorygame.Spel.resetSpel(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Reset spel als er op de knop resetknop wordt geklikt
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Memorygame.Spel.PropertyGewijzigd(System.String)">
+            <summary>
+            Update property als content in variabele is veranderd
+            </summary>
+            <param name="propertyName">De property met een nieuwe waarde</param>
+        </member>
+        <member name="M:Memorygame.Spel.opslaan(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Spel opslaan klik
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Memorygame.Spel.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Memorygame.SpelWindow">
+            <summary>
+            Interaction logic for SpelWindow.xaml
+            </summary>
+            <summary>
+            SpelWindow
+            </summary>
+        </member>
+        <member name="M:Memorygame.SpelWindow.#ctor(System.Boolean)">
+            <summary>
+            Spel starten
+            </summary>
+            <param name="_spelHervatten">Spel herstarten? Geef TRUE mee</param>
+        </member>
+        <member name="M:Memorygame.SpelWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Memorygame.App">
+            <summary>
+            Interaction logic for App.xaml
+            </summary>
+            <summary>
+            App
+            </summary>
+        </member>
+        <member name="M:Memorygame.App.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:Memorygame.App.Main">
+            <summary>
+            Application Entry Point.
+            </summary>
+        </member>
+        <member name="T:Memorygame.MainWindow">
+            <summary>
+            Interaction logic for MainWindow.xaml
+            </summary>
+            <summary>
+            MainWindow
+            </summary>
+        </member>
+        <member name="M:Memorygame.MainWindow.controleerMapenBestanden">
+            <summary>
+            Controleer of map bestaat en bestanden bestaan. Zo niet, probeer eerst aan te maken
+            </summary>
+            <returns>Bool of map en bestanden bestaan</returns>
+        </member>
+        <member name="M:Memorygame.MainWindow.controleerHighscoresBestand">
+            <summary>
+            Controleer of highscore bestand is ingevuld
+            </summary>
+            <returns>True als scores aanwezig zijn, false als er nog geen scores zijn</returns>
+        </member>
+        <member name="M:Memorygame.MainWindow.controleerSav">
+            <summary>
+            Controleer of SAV bestand leeg is of is ingevuld
+            </summary>
+            <returns>True als ingevuld, false als leeg</returns>
+        </member>
+        <member name="M:Memorygame.MainWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Memorygame.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Memorygame.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Memorygame.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>

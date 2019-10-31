@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -26,32 +27,49 @@ namespace Memorygame
         string _breedteLengte;
         int _aantalSets;
         string _aantalSetsString;
-        int _turnTimeSeconden;
-        string _turnTimeString;
-        int _turnTimeComboSeconden;
-        string _turnTimeComboString;
-        public Instellingen()
+        string _thema;
+        string padInstellingen;
+        string[] _instellingen;
+
+        /// <summary>
+        /// Controleerd of instellingenbestand is ingevuld en leest deze in in _instellingen stringArray.
+        /// Indien bestand niet bestaat worden standaard instellingen toegepast.
+        /// </summary>
+        public Instellingen(string _padInstelingen)
         {
-            saven ophalen = new saven();
             InitializeComponent();
             DataContext = this;
-            if (ophalen.controleerInstellingenBestand())
+            padInstellingen = _padInstelingen;
+            try { _instellingen = File.ReadAllLines(padInstellingen); }
+            catch (Exception) { MessageBox.Show("Het instellingenbestand is niet beschikbaar. Probeer het over enkele seconden opnieuw of probeer het spel opnieuw te starten."); return; };
+            
+            if (_instellingen.Length == 0)
             {
-                int[] _instellingen = ophalen.instelingenLezen();
-                changeBreedteLengte(_instellingen[0], _instellingen[1]);
-                aantalSets = _instellingen[2];
-                turnTimeSeconden = _instellingen[3];
-                turnTimeComboSeconden = _instellingen[4];
+                standaardInstellingen();
             } else
             {
-                changeBreedteLengte(4, 4);
-                aantalSets = 1;
-                turnTimeSeconden = 10;
-                turnTimeComboSeconden = 2;
-            }
-            
+                changeBreedteLengte(Convert.ToInt32(_instellingen[0]), Convert.ToInt32(_instellingen[1]));
+                aantalSets = Convert.ToInt32(_instellingen[2]);
+                thema = _instellingen[3];
+            } 
         }
 
+        /// <summary>
+        /// Indien geen bestanden aanwezig, geef standaard instellingen mee
+        /// </summary>
+        public Instellingen()
+        {
+
+            standaardInstellingen();
+
+        }
+
+
+
+        /// <summary>
+        /// String met hierin Breedte * Lengte verwerkt tbv instellingenscherm.
+        /// String wordt gewijzigd door changeBreedteLengte functie
+        /// </summary>
         public string breedteLengte
         {
             get { return _breedteLengte; }
@@ -61,7 +79,10 @@ namespace Memorygame
                 PropertyGewijzigd();
             }
         }
-
+        /// <summary>
+        /// String met aantal Sets tbv instellingen scherm
+        /// Wordt automatisch gewijzigd voor aantalSets int
+        /// </summary>
         public string aantalSetsString
         {
             get { return _aantalSetsString; }
@@ -71,106 +92,71 @@ namespace Memorygame
                 PropertyGewijzigd();
             }
         }
-
+        /// <summary>
+        /// Wijzig het aantal te raden sets
+        /// Verifieer eerst of het aantal sets geldig is, anders foutmelding weergeven met verdere instructies
+        /// Maak daarna string aan voor aantalSetsString tvb instellingenscherm
+        /// </summary>
         public int aantalSets
         {
             get { return _aantalSets; }
             set
             {
                 if (value < 1)
-                    value = 1;
+                    value = _aantalSets;
                 if (value > (breedte * lengte) / 2)
                 {
-                    value = (breedte * lengte) / 2;
+                    value = _aantalSets;
                     MessageBox.Show("Je hebt een grid van " + breedteLengte + ". Hierin zijn maximaal " + Convert.ToString((breedte * lengte) / 2) + " combinatie's mogelijk.");
                 }
-                if (value * turnTimeComboSeconden > turnTimeSeconden)
+                if ((breedte * lengte % value) != 0)
                 {
-                    value = turnTimeSeconden / turnTimeComboSeconden;
-                    MessageBox.Show("Er zijn maximaal " + Convert.ToString(value) + " combo's mogelijk om " + Convert.ToString(turnTimeComboSeconden) + " seconden van de tijd af te trekken per juiste combo.");
+                    value = _aantalSets;
+                    MessageBox.Show("Dit aantal sets komt niet uit met het huidige grid van " + breedteLengte);
                 }
                 _aantalSets = value;
                 PropertyGewijzigd();
                 aantalSetsString = Convert.ToString(value) + " paar";
             }
         }
-
-        public string turnTimerString
+        /// <summary>
+        /// String met hierin het thema
+        /// </summary>
+        public string thema
         {
-            get { return _turnTimeString; }
-            set
+            get
             {
-                _turnTimeString = value;
+                return _thema;
+            } set
+            {
+                _thema = value;
                 PropertyGewijzigd();
             }
         }
 
-        public int turnTimeSeconden
+        private void standaardInstellingen()
         {
-            get { return _turnTimeSeconden; }
-            set
-            {
-                if (value < 1)
-                    value = 1;
-                if (value < aantalSets * turnTimeComboSeconden)
-                {
-                    value = aantalSets * turnTimeComboSeconden;
-                    MessageBox.Show("Er zijn minimaal " + Convert.ToString(value) + " seconden nodig om per combo " + Convert.ToString(turnTimeComboSeconden) + " seconden van de tijd af te trekken.");
-                }
-
-                _turnTimeSeconden = value;
-                PropertyGewijzigd();
-                turnTimerString = Convert.ToString(_turnTimeSeconden) + " seconden";
-            }
+            changeBreedteLengte(4, 4);
+            aantalSets = 1;
+            thema = "Smiley's";
         }
-
-        public string turnTimerComboString
-        {
-            get { return _turnTimeComboString; }
-            set
-            {
-                _turnTimeComboString = value;
-                PropertyGewijzigd();
-            }
-        }
-
-        public int turnTimeComboSeconden
-        {
-            get { return _turnTimeComboSeconden; }
-            set
-            {
-                if (value < 0)
-                    value = 0;
-                if ((value * aantalSets) > turnTimeSeconden)
-                {
-                    value = turnTimeSeconden / aantalSets;
-                    MessageBox.Show("Er kunnen maximaal " + Convert.ToString(value) + " seconden per combo van je tijd afgaan als je timer op " + Convert.ToString(turnTimeSeconden) + " seconden en het aantal te raden combo's op " + Convert.ToString(aantalSets) + " staat");
-                }
-                    
-                _turnTimeComboSeconden = value;
-                PropertyGewijzigd();
-                turnTimerComboString = Convert.ToString(_turnTimeComboSeconden) + " seconden eraf per goede combo";
-            }
-        }
-
-        private string[] instellingenOphalen()
-        {
-            string[] _instellingen = new string[5];
-            return _instellingen;
-        }
-
+        /// <summary>
+        /// Functie als er op instellingen opslaan knop wordt geklikt.
+        /// schijf instellingen weg in volgorde: breedte, lengte, aantalSets, Thema
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Opslaan(object sender, RoutedEventArgs e)
         {
-            saven opslaan = new saven();
-            if (opslaan.controleerInstellingenAanweig()) {
-                opslaan.instellingenWegschrijven(breedte, lengte, aantalSets, turnTimeSeconden, turnTimeComboSeconden);
-                this.Close();
-            }
-            
-            else
-                MessageBox.Show("Instellingen kunnen niet worden opgeslagen door het ontbreken van het instellinen bestand");
+            File.WriteAllText(padInstellingen, string.Format("{0}\n{1}\n{2}\n{3}", lengte, breedte, aantalSets, thema));
+            this.Close();
         }
 
+        /// <summary>
+        /// Verander breedte en lengte variabelen en pas string aan tbv instellingenscherm
+        /// </summary>
+        /// <param name="_breedte">Breedte grid</param>
+        /// <param name="_lengte">Lengte Grid</param>
         private void changeBreedteLengte(int _breedte, int _lengte)
         {
             if ((_breedte * _lengte) / 2 < aantalSets )
@@ -183,8 +169,8 @@ namespace Memorygame
             breedteLengte = Convert.ToString(breedte) + " * " + Convert.ToString(lengte);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
+        public event PropertyChangedEventHandler PropertyChanged;
         /// <summary>
         /// Update property als content in variabele is veranderd
         /// </summary>
@@ -215,20 +201,33 @@ namespace Memorygame
             changeBreedteLengte(6, 6);
         }
 
-        private void pasSecondenAanKlik(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Genereer string met hierin de instellingen
+        /// </summary>
+        /// <returns>string Array in volgorde: [0] = breedte [1] = lengte [2] = aantal sets te raden [3] = thema</returns>
+        public string[] ophalen()
         {
-            turnTimerString = Convert.ToString(turnTimeSeconden) + " seconden";
+            string[] _return = new string[5];
+            _return[0] = Convert.ToString(breedte);
+            _return[1] = Convert.ToString(lengte);
+            _return[2] = Convert.ToString(aantalSets);
+            _return[3] = thema;
+            return _return;
         }
 
-        public int[] ophalen()
+        private void themaKlikSmileys(object sender, RoutedEventArgs e)
         {
-            int[] _return = new int[5];
-            _return[0] = breedte;
-            _return[1] = lengte;
-            _return[2] = aantalSets;
-            _return[3] = turnTimeSeconden;
-            _return[4] = turnTimeComboSeconden;
-            return _return;
+            thema = "Smiley's";
+        }
+
+        private void themaKlikDieren(object sender, RoutedEventArgs e)
+        {
+            thema = "Dieren";
+        }
+
+        private void themaKlikVoedsel(object sender, RoutedEventArgs e)
+        {
+            thema = "Voedsel";
         }
     }
 }

@@ -16,24 +16,18 @@
                 <Button x:Name="vijf" Width="100" Height="40" Content="5 * 5" HorizontalAlignment="Center" Margin="150,0,0,0" Click="setKlik5" Background="#FF5151DE" FontSize="20" Foreground="White"></Button>
                 <Button x:Name="zes" Width="100" Height="40" Content="6 * 6" HorizontalAlignment="Center" Margin="300,0,0,0" Click="setKlik6" Background="#FF5151DE" FontSize="20" Foreground="White"></Button>
             </Canvas>
-            <Label Content="Aantal sets goed voor toekennen punten" Foreground="White" FontSize="24" x:Name="aantalSetss" Margin="127,120,131,0" HorizontalAlignment="Center" Height="40" VerticalAlignment="Top" />
-            <Label Content="{Binding turnTimerString}" Foreground="#FF5151DE" FontSize="24" x:Name="sss" HorizontalAlignment="Center" Margin="0,250,0,0" VerticalAlignment="Top" />
-            <Canvas Height="45" Width="170" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,185,0,0">
+            <Label Content="Aantal sets goed voor toekennen punten" Foreground="White" FontSize="24" x:Name="aantalSetsLabel" Margin="127,120,131,0" HorizontalAlignment="Center" Height="40" VerticalAlignment="Top" />
+            <Canvas Height="45" Width="170" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,190,0,0">
                 <TextBox Text="{Binding aantalSets}" Margin="0,0,0,0" Height="40" Width="50" FontSize="20" Foreground="#FF5151DE" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
-                <Button x:Name="svdvdaveTurnTime" Width="100" Height="40" Content="Aanpassen" HorizontalAlignment="Center" Margin="60,0,0,0" Click="pasSecondenAanKlik" Background="#FF5151DE" FontSize="20" Foreground="White"></Button>
+                <Button x:Name="saveTurnTime" Width="100" Height="40" Content="Aanpassen" HorizontalAlignment="Center" Margin="60,0,0,0" Background="#FF5151DE" FontSize="20" Foreground="White"></Button>
             </Canvas>
-            <Label Content="{Binding aantalSetsString}" Foreground="#FF5151DE" FontSize="24" x:Name="aantalSets_setting" HorizontalAlignment="Center" Margin="0,140,0,0" VerticalAlignment="Top" />
-            <Label Content="Turn timer" Foreground="White" FontSize="24" x:Name="turnTimer" Margin="0,220,0,0" HorizontalAlignment="Center" />
-            <Label Content="{Binding turnTimerString}" Foreground="#FF5151DE" FontSize="24" x:Name="turntimer_setting" HorizontalAlignment="Center" Margin="0,250,0,0" />
-            <Canvas Height="45" Width="170" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,290,0,0">
-                <TextBox Text="{Binding turnTimeSeconden}" Margin="0,0,0,0" Height="40" Width="50" FontSize="20" Foreground="#FF5151DE" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
-            <Button x:Name="saveTurnTime" Width="100" Height="40" Content="Aanpassen" HorizontalAlignment="Center" Margin="60,0,0,0" Click="pasSecondenAanKlik" Background="#FF5151DE" FontSize="20" Foreground="White"></Button>
-            </Canvas>
-            <Label Content="Minder tijd per combo?" Foreground="White" FontSize="24" x:Name="turnTimderperCombo" Margin="0,330,0,0" HorizontalAlignment="Center" />
-            <Label Content="{Binding turnTimerComboString}" Foreground="#FF5151DE" FontSize="24" x:Name="txxxurnTimerperCombo_sethhhting" HorizontalAlignment="Center" Margin="0,360,0,0" />
-            <Canvas Height="45" Width="170" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,420,0,0">
-                <TextBox Text="{Binding turnTimeComboSeconden}" Margin="0,0,0,0" Height="40" Width="50" FontSize="20" Foreground="#FF5151DE" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
-                <Button x:Name="ssssaveTurnTime" Width="100" Height="40" Content="Aanpassen" HorizontalAlignment="Center" Margin="60,0,0,0" Click="pasSecondenAanKlik" Background="#FF5151DE" FontSize="20" Foreground="White"></Button>
+            <Label Content="{Binding aantalSetsString}" Foreground="#FF5151DE" FontSize="24" x:Name="aantalSets_setting" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top" />
+            <Label Content="Thema" Foreground="White" FontSize="24" x:Name="thema_label" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,250,0,0" />
+            <Label Content="{Binding thema}" Foreground="#FF5151DE" FontSize="24" x:Name="thema_setting" HorizontalAlignment="Center" Margin="0,275,0,0" VerticalAlignment="Top" />
+            <Canvas Height="50" Width="400" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,320,0,0">
+                <Button x:Name="smileys" Width="100" Height="40" Content="Smiley's" HorizontalAlignment="Center" Margin="0,0,0,0" Click="themaKlikSmileys" Background="#FF5151DE" FontSize="20" Foreground="White"></Button>
+                <Button x:Name="dieren" Width="100" Height="40" Content="Dieren" HorizontalAlignment="Center" Margin="150,0,0,0" Click="themaKlikDieren" Background="#FF5151DE" FontSize="20" Foreground="White"></Button>
+                <Button x:Name="voedsel" Width="100" Height="40" Content="Voedsel" HorizontalAlignment="Center" Margin="300,0,0,0" Click="themaKlikVoedsel" Background="#FF5151DE" FontSize="20" Foreground="White"></Button>
             </Canvas>
         </Grid>
         <Button x:Name="opslaan" Content="Opslaan" Margin="0,590,0,0" VerticalAlignment="Top" Height="60" Click="Opslaan" Background="#FF5151DE" FontSize="36" RenderTransformOrigin="1,0" BorderBrush="Black" Foreground="White" AutomationProperties.HelpText="Sla instellingen op"/>

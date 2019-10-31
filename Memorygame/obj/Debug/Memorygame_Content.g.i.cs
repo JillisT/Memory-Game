@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/help.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("vraagteken.png")]
 
 

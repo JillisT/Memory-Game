@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,12 +20,13 @@ namespace Memorygame
     /// </summary>
     public partial class Highscores : Window
     {
-        public Highscores()
+        string padHighscores;
+        public Highscores(string _padHighscores)
         {
             InitializeComponent();
+            padHighscores = _padHighscores;
             // haal scores op en sla op in dictionary _scores
-            saven scores = new saven();
-            Dictionary<String, Int32> _scores = scores.highscoreUitlezen();
+            Dictionary<String, Int32> _scores = highscoreUitlezen();
             int marginboven = 0;
             int positie = 0;
             int laatsteScrore = -1;
@@ -67,6 +69,33 @@ namespace Memorygame
             }
         }
 
+        /// <summary>
+        /// Lees Highscores uit
+        /// </summary>
+        /// <returns>Dictionary met naam en score</returns>
+        public Dictionary<string, int> highscoreUitlezen()
+        {
+            string _naam = string.Empty;
+            Dictionary<string, int> _highScores = new Dictionary<string, int>();
+            // lees highscore bestand uit, en voer per lijn actie uit
+            foreach (string line in File.ReadLines(padHighscores, Encoding.UTF8))
+            {
+                // als string naam leeg is, zet naam is string en voer volgende lijn uit
+                if (_naam == string.Empty)
+                {
+                    _naam = line;
+                    continue;
+                }
+                // als er een naam bekend is, dan zitten we nu op een score lijn. Lees deze uit en voeg naam + highscore toe aan dic
+                else
+                {
+                    _highScores.Add(_naam, Convert.ToInt32(line));
+                    // maak string naam weer leeg
+                    _naam = string.Empty;
+                }
+            }
+            return _highScores;
+        }
         private void Button_Exit(object sender, RoutedEventArgs e)
         {
             this.Close();

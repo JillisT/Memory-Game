@@ -5,15 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Memorygame"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="1200"
+      d:DesignHeight="850" d:DesignWidth="1200"
       Title="Spel">
-    <Canvas Width="1200" Height="800">
-        <Label Content="MemoryGame groep 19 - veel succes!" Width="1150" Height="50" FontSize="18" FontFamily="Segoe UI Historic" />
-        <TextBlock Width="1150" Height="50" FontSize="18" FontFamily="Segoe UI Historic" Margin="0,50,0,0" FontWeight="Light">
+    <Canvas Width="1200" Height="850">
+        <Label Content="MemoryGame groep 19 - veel succes!" Width="1150" Height="50" FontSize="18" FontFamily="Segoe UI Historic" Background="#FF5151DE" />
+        <TextBlock Width="1150" Height="80" FontSize="18" FontFamily="Segoe UI Historic" Margin="0,50,0,0" FontWeight="Light">
             <Run Text="{Binding Path=naamHuidigeSpeler}"></Run>
             <Run Text=" is aan de beurt"></Run>
         </TextBlock>
-        <Button Margin="1080,0,20,0" Width="70" Height="30" Content="Reset" Click="resetSpel" />
+        <Button Margin="1080,0,20,0" Width="70" Height="30" Content="Reset" Click="resetSpelKnop" />
         <Button Margin="1080,40,20,0" Width="70" Height="30" Content="Opslaan" Click="opslaan" />
         <TextBlock Margin="600,0,0,0" Width="300" Height="200" MaxHeight="200" HorizontalAlignment="Left" TextAlignment="Center">
             <Run x:Name="label_Score" Text="Score" FontSize="16"></Run>
@@ -26,7 +26,7 @@
             <LineBreak/>
             <Run x:Name="label_Score_xombo" Text="{Binding Path=huigeMultiplierString}" FontSize="16"></Run>
         </TextBlock>
-        <Grid x:Name="MemoryGrid" Width="1200" Height="700" Margin="0,100,0,0"></Grid>
+        <Grid x:Name="MemoryGrid" Width="1200" Height="700" Margin="0,150,0,0"></Grid>
     </Canvas>
     
 

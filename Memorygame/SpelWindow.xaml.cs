@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,22 +20,42 @@ namespace Memorygame
     /// </summary>
     public partial class SpelWindow : Window
     {
+        bool mapAanwezig = false;
+        string locatieSavBestand;
+        string locatieInstellingenBestand;
+        string locatieHighScoreBestand;
         /// <summary>
         /// Spel starten
         /// </summary>
         /// <param name="_spelHervatten">Spel herstarten? Geef TRUE mee</param>
-        public SpelWindow(bool _spelHervatten)
+        public SpelWindow(bool _spelhervatten, string _locatieInstellingenBestand, string _locatieHighScoreBestand, string _locatieSavBestand)
         {
             InitializeComponent();
             DataContext = this;
-            if (_spelHervatten)
-            {
-                // er moet een spel worden hervat. Lees basisgegevens uit, start spel direct door met parameters 
-                saven ophalen = new saven();
-                string[] _basisGegevens = ophalen.basisGegevens();
-                Spel spel = new Spel(Convert.ToInt32(_basisGegevens[0]), Convert.ToInt32(_basisGegevens[1]), _basisGegevens[2], _basisGegevens[3], Convert.ToInt32(_basisGegevens[4]), Convert.ToInt32(_basisGegevens[5]), true, Convert.ToInt32(_basisGegevens[6]), Convert.ToInt32(_basisGegevens[7]), Convert.ToInt32(_basisGegevens[8]), Convert.ToInt32(_basisGegevens[9]), Convert.ToInt32(_basisGegevens[10]));
+                Spel spel = new Spel(true, _locatieInstellingenBestand, _locatieHighScoreBestand, _locatieSavBestand);
                 this.Content = spel;
-            }
+        }
+
+        /// <summary>
+        /// SpelWindow zonder bestandenmap
+        /// </summary>
+        public SpelWindow()
+        {
+            InitializeComponent();
+            DataContext = this;
+        }
+
+        /// <summary>
+        /// SpelWindow met bestandenmap
+        /// </summary>
+        public SpelWindow(string _locatieInstellingenBestand, string _locatieHighScoreBestand, string _locatieSavBestand)
+        {
+            InitializeComponent();
+            DataContext = this;
+            locatieInstellingenBestand = _locatieInstellingenBestand;
+            locatieHighScoreBestand = _locatieHighScoreBestand;
+            locatieSavBestand = _locatieSavBestand;
+            mapAanwezig = true;
         }
 
         private string _Speler1 = "Speler 1";
@@ -65,12 +86,17 @@ namespace Memorygame
 
         private void Spel_starten(object sender, RoutedEventArgs e)
         {
-            // haal instellingen op
-            Instellingen _instellingen = new Instellingen();
-            int[] _instellingenArray = _instellingen.ophalen();
-            // start een nieuw spel
-            Spel spel = new Spel(0, 0, _Speler1, _Speler2, 1, 1, false, _instellingenArray[0], _instellingenArray[1], _instellingenArray[2], 0, 1);
-            this.Content = spel;
+            if (mapAanwezig)
+            {
+                // start een nieuw spel
+                Spel spel = new Spel(Speler1, Speler2, locatieInstellingenBestand, locatieHighScoreBestand, locatieSavBestand);
+                this.Content = spel;
+            } else
+            {
+                Spel spel = new Spel(Speler1, Speler2);
+                this.Content = spel;
+            }
+            
         }
 
         private void schermSluiten (object sender, System.ComponentModel.CancelEventArgs e)

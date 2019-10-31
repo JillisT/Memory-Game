@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Memorygame.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -64,7 +65,6 @@
     <Compile Include="Instellingen.xaml.cs">
       <DependentUpon>Instellingen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="saven.cs" />
     <Compile Include="Spel.xaml.cs">
       <DependentUpon>Spel.xaml</DependentUpon>
     </Compile>
@@ -131,19 +131,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\1.png" />
-    <Resource Include="images\2.png" />
-    <Resource Include="images\3.png" />
-    <Resource Include="images\4.png" />
-    <Resource Include="images\5.png" />
-    <Resource Include="images\6.png" />
-    <Resource Include="images\7.png" />
-    <Resource Include="images\8.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="vraagteken.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="medaille\1.png" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +139,71 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\Help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Smiley%27s\1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Smiley%27s\10.png" />
+    <Resource Include="images\Smiley%27s\11.png" />
+    <Resource Include="images\Smiley%27s\12.png" />
+    <Resource Include="images\Smiley%27s\13.png" />
+    <Resource Include="images\Smiley%27s\14.png" />
+    <Resource Include="images\Smiley%27s\15.png" />
+    <Resource Include="images\Smiley%27s\16.png" />
+    <Resource Include="images\Smiley%27s\17.png" />
+    <Resource Include="images\Smiley%27s\18.png" />
+    <Resource Include="images\Smiley%27s\2.png" />
+    <Resource Include="images\Smiley%27s\3.png" />
+    <Resource Include="images\Smiley%27s\4.png" />
+    <Resource Include="images\Smiley%27s\5.png" />
+    <Resource Include="images\Smiley%27s\6.png" />
+    <Resource Include="images\Smiley%27s\7.png" />
+    <Resource Include="images\Smiley%27s\8.png" />
+    <Resource Include="images\Smiley%27s\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Voedsel\1.png" />
+    <Resource Include="images\Voedsel\10.png" />
+    <Resource Include="images\Voedsel\11.png" />
+    <Resource Include="images\Voedsel\12.png" />
+    <Resource Include="images\Voedsel\13.png" />
+    <Resource Include="images\Voedsel\14.png" />
+    <Resource Include="images\Voedsel\15.png" />
+    <Resource Include="images\Voedsel\16.png" />
+    <Resource Include="images\Voedsel\17.png" />
+    <Resource Include="images\Voedsel\18.png" />
+    <Resource Include="images\Voedsel\2.png" />
+    <Resource Include="images\Voedsel\3.png" />
+    <Resource Include="images\Voedsel\4.png" />
+    <Resource Include="images\Voedsel\5.png" />
+    <Resource Include="images\Voedsel\6.png" />
+    <Resource Include="images\Voedsel\7.png" />
+    <Resource Include="images\Voedsel\8.png" />
+    <Resource Include="images\Voedsel\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Dieren\1.png" />
+    <Resource Include="images\Dieren\10.png" />
+    <Resource Include="images\Dieren\11.png" />
+    <Resource Include="images\Dieren\12.png" />
+    <Resource Include="images\Dieren\13.png" />
+    <Resource Include="images\Dieren\14.png" />
+    <Resource Include="images\Dieren\15.png" />
+    <Resource Include="images\Dieren\16.png" />
+    <Resource Include="images\Dieren\17.png" />
+    <Resource Include="images\Dieren\18.png" />
+    <Resource Include="images\Dieren\2.png" />
+    <Resource Include="images\Dieren\3.png" />
+    <Resource Include="images\Dieren\4.png" />
+    <Resource Include="images\Dieren\5.png" />
+    <Resource Include="images\Dieren\6.png" />
+    <Resource Include="images\Dieren\7.png" />
+    <Resource Include="images\Dieren\8.png" />
+    <Resource Include="images\Dieren\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="vraagteken.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
