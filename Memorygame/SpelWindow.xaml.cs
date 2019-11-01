@@ -21,19 +21,24 @@ namespace Memorygame
     public partial class SpelWindow : Window
     {
         bool mapAanwezig = false;
-        string locatieSavBestand;
-        string locatieInstellingenBestand;
-        string locatieHighScoreBestand;
+        string[] paden;
+        bool spelHerstarten = false;
         /// <summary>
         /// Spel starten
         /// </summary>
         /// <param name="_spelHervatten">Spel herstarten? Geef TRUE mee</param>
-        public SpelWindow(bool _spelhervatten, string _locatieInstellingenBestand, string _locatieHighScoreBestand, string _locatieSavBestand)
+        public SpelWindow(bool _spelHerstarten, string[] _paden)
         {
             InitializeComponent();
             DataContext = this;
-                Spel spel = new Spel(true, _locatieInstellingenBestand, _locatieHighScoreBestand, _locatieSavBestand);
+            spelHerstarten = _spelHerstarten;
+            paden = _paden;
+            mapAanwezig = true;
+            if (spelHerstarten)
+            {
+                Spel spel = new Spel(paden);
                 this.Content = spel;
+            }
         }
 
         /// <summary>
@@ -43,19 +48,6 @@ namespace Memorygame
         {
             InitializeComponent();
             DataContext = this;
-        }
-
-        /// <summary>
-        /// SpelWindow met bestandenmap
-        /// </summary>
-        public SpelWindow(string _locatieInstellingenBestand, string _locatieHighScoreBestand, string _locatieSavBestand)
-        {
-            InitializeComponent();
-            DataContext = this;
-            locatieInstellingenBestand = _locatieInstellingenBestand;
-            locatieHighScoreBestand = _locatieHighScoreBestand;
-            locatieSavBestand = _locatieSavBestand;
-            mapAanwezig = true;
         }
 
         private string _Speler1 = "Speler 1";
@@ -89,7 +81,7 @@ namespace Memorygame
             if (mapAanwezig)
             {
                 // start een nieuw spel
-                Spel spel = new Spel(Speler1, Speler2, locatieInstellingenBestand, locatieHighScoreBestand, locatieSavBestand);
+                Spel spel = new Spel(paden, Speler1, Speler2);
                 this.Content = spel;
             } else
             {

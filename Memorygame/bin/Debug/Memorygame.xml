@@ -126,29 +126,14 @@
             String naamHuidigeSpeler wijzigen
             </summary>
         </member>
-        <member name="P:Memorygame.Spel.huidigeScore">
-            <summary>
-            huidigeScore string wijzigen
-            </summary>
-        </member>
         <member name="P:Memorygame.Spel.aantalComboTeGaan">
             <summary>
             Aantal combo's te gaan int wijzigen
             </summary>
         </member>
-        <member name="P:Memorygame.Spel.aantalComboTeGaanString">
-            <summary>
-            Huidge Combo's te gaan string wijzigen
-            </summary>
-        </member>
         <member name="P:Memorygame.Spel.huidigeMultiplier">
             <summary>
             Aantal Multiplier
-            </summary>
-        </member>
-        <member name="P:Memorygame.Spel.huigeMultiplierString">
-            <summary>
-            Huidge multiplier string
             </summary>
         </member>
         <member name="P:Memorygame.Spel.aantalKaartjes">
@@ -170,7 +155,7 @@
             <param name="_naamSpeler1"></param>
             <param name="_naamSpeler2"></param>
         </member>
-        <member name="M:Memorygame.Spel.#ctor(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Memorygame.Spel.#ctor(System.String[],System.String,System.String)">
             <summary>
             Start nieuw spel met instellingen bestand en zonder herladen
             </summary>
@@ -178,7 +163,7 @@
             <param name="_naamSpeler2"></param>
             <param name="_locatieInstellingenBestand"></param>
         </member>
-        <member name="M:Memorygame.Spel.#ctor(System.Boolean,System.String,System.String,System.String)">
+        <member name="M:Memorygame.Spel.#ctor(System.String[])">
             <summary>
             Start nieuw spel met instellingen bestand en met herladen
             </summary>
@@ -244,7 +229,7 @@
             SpelWindow
             </summary>
         </member>
-        <member name="M:Memorygame.SpelWindow.#ctor(System.Boolean,System.String,System.String,System.String)">
+        <member name="M:Memorygame.SpelWindow.#ctor(System.Boolean,System.String[])">
             <summary>
             Spel starten
             </summary>
@@ -253,11 +238,6 @@
         <member name="M:Memorygame.SpelWindow.#ctor">
             <summary>
             SpelWindow zonder bestandenmap
-            </summary>
-        </member>
-        <member name="M:Memorygame.SpelWindow.#ctor(System.String,System.String,System.String)">
-            <summary>
-            SpelWindow met bestandenmap
             </summary>
         </member>
         <member name="M:Memorygame.SpelWindow.InitializeComponent">
@@ -328,6 +308,11 @@
             <summary>
               Overrides the current thread's CurrentUICulture property for all
               resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Memorygame.Properties.Resources.muziek">
+            <summary>
+              Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
             </summary>
         </member>
     </members>

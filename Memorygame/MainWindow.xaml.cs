@@ -28,9 +28,7 @@ namespace Memorygame
         string padSavBestand = "save.sav";
         string padHighscores = "memory.txt";
         string padInstellingen = "instellingen.txt";
-        string padSavBestandVolledig;
-        string padInstellingenVolledig;
-        string padHighScoreVolledig;
+        string[] paden = new string[3];
         public MainWindow()
         {
             InitializeComponent();
@@ -39,9 +37,9 @@ namespace Memorygame
             {
                 highscoreAanwezig = controleerHighscoresBestand();
                 savAanwezig = controleerSav();
-                padSavBestandVolledig = map + padSavBestand;
-                padInstellingenVolledig = map + padInstellingen;
-                padHighScoreVolledig = map + padHighscores;
+                paden[0] = map + padSavBestand;
+                paden[1] = map + padInstellingen;
+                paden[2] = map + padHighscores;
             }
             
         }
@@ -118,7 +116,7 @@ namespace Memorygame
         {
             if (savAanwezig)
             {
-                SpelWindow spelwindow = new SpelWindow(true, padInstellingenVolledig, padHighScoreVolledig, padSavBestandVolledig);
+                SpelWindow spelwindow = new SpelWindow(true, paden);
                 spelwindow.Show();
                 this.Hide();
             }
@@ -139,12 +137,12 @@ namespace Memorygame
                 if (m == MessageBoxResult.Yes)
                 {
                     File.WriteAllText(map + padSavBestand, string.Empty);
-                    SpelWindow spelwindow = new SpelWindow(padInstellingenVolledig, padHighScoreVolledig, padSavBestandVolledig);
+                    SpelWindow spelwindow = new SpelWindow(false, paden);
                     spelwindow.Show();
                 }
                 else if (m == MessageBoxResult.No)
                 {
-                    SpelWindow spelwindow = new SpelWindow(true, padInstellingenVolledig, padHighScoreVolledig, padSavBestandVolledig);
+                    SpelWindow spelwindow = new SpelWindow(true, paden);
                     spelwindow.Show();
                 }
             } else
@@ -152,7 +150,7 @@ namespace Memorygame
             {
                 if (bestandenAanwezig)
                 {
-                    SpelWindow spelwindow = new SpelWindow(padInstellingenVolledig, padHighScoreVolledig, padSavBestandVolledig);
+                    SpelWindow spelwindow = new SpelWindow(false, paden);
                     spelwindow.Show();
                 } else
                 {

@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.IO;
+using System.Media;
 
 namespace Memorygame
 {
@@ -34,13 +35,13 @@ namespace Memorygame
         int hoeveelComboSetting; // hoeveel combo's moeten goed zijn voor punten 
         int _aantalComboTeGaan; // hoeveel combo's te gaan. Get Set
         string _aantalComboTeGaanString; // hoeveel combo's te gaan string. Auto.
-        string naamSpeler1; //naam speler 1
-        string naamSpeler2; // naam speler 2
+        string _naamSpeler1; //naam speler 1
+        string _naamSpeler2; // naam speler 2
         private int _huidigeSpeler; // huidige speler ID. Wijzigen via Get Set
         private string _naamHuidigeSpeler; // Naam huidige speler. Wordt automatisch aangepast als huidigeSpeler ID wordt aangepast
         private string _huidigeScore; // String met huidige score. Wordt automatisch aangepast
-        private int huidigeScoreSpeler1; // Huidige score speler 1. Aanpassen via functie PuntenWijzigen
-        private int huidigeScoreSpeler2; // Huidige score speler2. Aanpassen via functie PuntenWijzigen
+        private int _huidigeScoreSpeler1; // Huidige score speler 1. Aanpassen via functie PuntenWijzigen
+        private int _huidigeScoreSpeler2; // Huidige score speler2. Aanpassen via functie PuntenWijzigen
         private int _huidigeMultiplier; // Huidige Multiplier. Aanpassen via Get Set
         private string _huigeMultiplierString;  //String huidige multiplier. Wordt automatisch aangepast
         string thema;
@@ -51,7 +52,9 @@ namespace Memorygame
         List<String> basisGegevens = new List<String>();
         List<String> ImgLijstString = new List<String>(); // lijst met afbeeldingen paden op volgorde (tbv save functie)
         List<String> omgedraaieKaartjes = new List<String>(); // lijst met adfbeeldingen paden welke zijn opgedraaid (tbv save functie)
-
+        bool geluidSpeelt = false;
+        SoundPlayer sound = new SoundPlayer(Memorygame.Properties.Resources.muziek);
+        SoundPlayer gewonnen = new SoundPlayer(Memorygame.Properties.Resources.gewonnen);
         /// <summary>
         /// int huidigeSpeler wijzigen
         /// </summary>
@@ -77,15 +80,55 @@ namespace Memorygame
                 PropertyGewijzigd();
             }
         }
-        /// <summary>
-        /// huidigeScore string wijzigen
-        /// </summary>
-        public string huidigeScore
+
+        public int huidigeScoreSpeler1
         {
-            get { return _huidigeScore; }
+            get
+            {
+                return _huidigeScoreSpeler1;
+            }
             set
             {
-                _huidigeScore = value;
+                _huidigeScoreSpeler1 = value;
+                PropertyGewijzigd();
+            }
+        }
+
+        public int huidigeScoreSpeler2
+        {
+            get
+            {
+                return _huidigeScoreSpeler2;
+            }
+            set
+            {
+                _huidigeScoreSpeler2 = value;
+                PropertyGewijzigd();
+            }
+        }
+
+        public string naamSpeler1
+        {
+            get
+            {
+                return _naamSpeler1;
+            }
+            set
+            {
+                _naamSpeler1 = value;
+                PropertyGewijzigd();
+            }
+        }
+
+        public string naamSpeler2
+        {
+            get
+            {
+                return _naamSpeler2;
+            }
+            set
+            {
+                _naamSpeler2 = value;
                 PropertyGewijzigd();
             }
         }
@@ -99,19 +142,6 @@ namespace Memorygame
             set
             {
                 _aantalComboTeGaan = value;
-                aantalComboTeGaanString = "Nog " + Convert.ToString(value) + " combo's te gaan";
-            }
-        }
-
-        /// <summary>
-        /// Huidge Combo's te gaan string wijzigen
-        /// </summary>
-        public string aantalComboTeGaanString
-        {
-            get { return _aantalComboTeGaanString; }
-            set
-            {
-                _aantalComboTeGaanString = value;
                 PropertyGewijzigd();
             }
         }
@@ -126,22 +156,10 @@ namespace Memorygame
             set
             {
                 _huidigeMultiplier = value;
-                huigeMultiplierString = "De multiplier staat op " + Convert.ToString(value);
-            }
-        }
-
-        /// <summary>
-        /// Huidge multiplier string
-        /// </summary>
-        public string huigeMultiplierString
-        {
-            get { return _huigeMultiplierString; }
-            set
-            {
-                _huigeMultiplierString = value;
                 PropertyGewijzigd();
             }
         }
+
         /// <summary>
         /// Aantal kaartjes int wijzigen. Check direct voor winnaar als kaartjes 0 is
         /// </summary>
@@ -149,7 +167,7 @@ namespace Memorygame
         {
             get { return _aantalKaartjes; }
             set
-            { 
+            {
                 _aantalKaartjes = value;
                 if (_aantalKaartjes == 0)
                 {
@@ -176,7 +194,7 @@ namespace Memorygame
                     {
                         MessageBox.Show("Highscore niet opgeslagen door ontbreken highscore bestand.");
                     }
-            resetSpel();
+                    resetSpel();
 
                 }
             }
@@ -202,8 +220,6 @@ namespace Memorygame
                 huidigeScoreSpeler1 = 0;
                 huidigeScoreSpeler2 = 0;
             }
-            // pas string aan met daarin netjes de score verwerkt
-            huidigeScore = huidigeScoreSpeler1 + " - " + huidigeScoreSpeler2;
         }
 
         /// <summary>
@@ -241,14 +257,14 @@ namespace Memorygame
         /// <param name="_naamSpeler2"></param>
         /// <param name="_locatieInstellingenBestand"></param>
 
-        public Spel(string _naamSpeler1, string _naamSpeler2, string _locatieInstellingenBestand, string _locatieHighscoreBestand, string _locatieSavBestand)
+        public Spel(string[] _paden, string _naamSpeler1, string _naamSpeler2)
         {
             InitializeComponent();
             DataContext = this;
-            locatieHighscoreBestand = _locatieHighscoreBestand;
-            locatieInstellingenBestand = _locatieInstellingenBestand;
-            locatieSavBestand = _locatieSavBestand;
-            Instellingen instellingen = new Instellingen(_locatieInstellingenBestand);
+            locatieHighscoreBestand = _paden[2];
+            locatieInstellingenBestand = _paden[1];
+            locatieSavBestand = _paden[0];
+            Instellingen instellingen = new Instellingen(locatieInstellingenBestand);
             string[] instellingenArray = instellingen.ophalen();
             // variabelen invullen
             aantalKolommen = Convert.ToInt32(instellingenArray[0]);
@@ -274,29 +290,29 @@ namespace Memorygame
         /// <param name="_locatieInstellingenBestand"></param>
         /// <param name="_locatieSavBestand"></param>
 
-        public Spel(bool _herladen, string _locatieInstellingenBestand, string _locatieHighScoreBestand, string _locatieSavBestand)
+        public Spel(string[] _paden)
         {
             InitializeComponent();
             DataContext = this;
             spelHervatten = true;
-            locatieSavBestand = _locatieSavBestand;
-            locatieHighscoreBestand = _locatieHighScoreBestand;
-            locatieInstellingenBestand = _locatieSavBestand;
+            locatieSavBestand = _paden[0];
+            locatieHighscoreBestand = _paden[2];
+            locatieInstellingenBestand = _paden[1];
             leesSavBestandUit();
             // variabelen invullen
             /// Volgorde: [0]Score speler 1, [1]Score speler 2, [2]Naam speler 1, [3]Naam speler 2, [4]huidige speler, [5]Rijen,
             /// [6]Kolommen, [7]Aantal sets instellingen, [8]Aantal kaarten over, [9]Huidige multiplier
-            aantalKolommen = Convert.ToInt32(basisGegevens[6]);
-            aantalRijen = Convert.ToInt32(basisGegevens[5]);
-            hoeveelComboSetting = Convert.ToInt32(basisGegevens[7]);
-            aantalComboTeGaan = Convert.ToInt32(basisGegevens[7]);
-            huidigeMultiplier = Convert.ToInt32(basisGegevens[9]);
-            aantalKaartjes = Convert.ToInt32(basisGegevens[8]);
+            puntenWijzigen(1, Convert.ToInt32(basisGegevens[0]));
+            puntenWijzigen(2, Convert.ToInt32(basisGegevens[1]));
             naamSpeler1 = basisGegevens[2];
             naamSpeler2 = basisGegevens[3];
             huidigeSpeler = Convert.ToInt32(basisGegevens[4]);
-            puntenWijzigen(1, Convert.ToInt32(basisGegevens[0]));
-            puntenWijzigen(2, Convert.ToInt32(basisGegevens[1]));
+            aantalRijen = Convert.ToInt32(basisGegevens[5]);
+            aantalKolommen = Convert.ToInt32(basisGegevens[6]);
+            hoeveelComboSetting = Convert.ToInt32(basisGegevens[7]);
+            aantalComboTeGaan = Convert.ToInt32(basisGegevens[7]);
+            aantalKaartjes = Convert.ToInt32(basisGegevens[8]);
+            huidigeMultiplier = Convert.ToInt32(basisGegevens[9]);
             thema = basisGegevens[10];
             initialiseerSpel();
         }
@@ -308,6 +324,8 @@ namespace Memorygame
                 aantalKaartjes = aantalVakjes;
             initialiseerGrid();
             genereerMemoryKaartjes();
+            sound.PlayLooping();
+            geluidSpeelt = true;
         }
 
         private void leesSavBestandUit()
@@ -416,29 +434,20 @@ namespace Memorygame
             // loop alle rijen af
             int rij = 0;
             int kolom = 0;
-                // loop in betreffende rij alle kolommen af
-                for (int i = 0; i < aantalVakjes; i++)
+            // loop in betreffende rij alle kolommen af
+            for (int i = 0; i < aantalVakjes; i++)
+            {
+                //maak Image aan
+                Image kaartje = new Image();
+                // als het een hervat spel betreft, controleer of deze afbeelding al is omgedraaid
+                if (spelHervatten)
                 {
-                    //maak Image aan
-                    Image kaartje = new Image();
-                    // als het een hervat spel betreft, controleer of deze afbeelding al is omgedraaid
-                    if (spelHervatten)
+                    // als het kaartje als is omgedraaid, laat dan de onderkant zien
+                    if (omgedraaieKaartjes.Contains(Convert.ToString(_afbeeldingen[0])))
                     {
-                        // als het kaartje als is omgedraaid, laat dan de onderkant zien
-                        if (omgedraaieKaartjes.Contains(Convert.ToString(_afbeeldingen[0])))
-                        {
-                            kaartje.Source = new BitmapImage(new Uri(Convert.ToString(_afbeeldingen[0]), UriKind.Relative));
-                        }
-                        // als het kaartje nog niet is omgedraaid
-                        else
-                        {
-                            // Vul bron met vraagteken image
-                            kaartje.Source = new BitmapImage(new Uri("Vraagteken.png", UriKind.Relative));
-                            // voeg event toe aan kaartje. Bij klik op kaartje voer 'kaartklik' uit
-                            kaartje.MouseDown += new MouseButtonEventHandler(kaartklik);
-                        }
+                        kaartje.Source = new BitmapImage(new Uri(Convert.ToString(_afbeeldingen[0]), UriKind.Relative));
                     }
-                    // als het een nieuw spel is, voeg de kaartjes dan normaal toe allemaal gesloten en met MouseDown event
+                    // als het kaartje nog niet is omgedraaid
                     else
                     {
                         // Vul bron met vraagteken image
@@ -446,23 +455,32 @@ namespace Memorygame
                         // voeg event toe aan kaartje. Bij klik op kaartje voer 'kaartklik' uit
                         kaartje.MouseDown += new MouseButtonEventHandler(kaartklik);
                     }
-                    // voeg tag toe aan kaartje met afbeelding achterkant, haal deze van lijst
-                    kaartje.Tag = _afbeeldingen[0];
-                    // verwijder bovenstaande imgsrc
-                    _afbeeldingen.RemoveAt(0);
-                    // selecteer juiste grid dmv variabelen in de 2 for lussen
-                    Grid.SetColumn(kaartje, kolom);
-                    Grid.SetRow(kaartje, rij);
-                    // voeg ingestelde waarden kaartje in op betreffende grid
-                    MemoryGrid.Children.Add(kaartje);
+                }
+                // als het een nieuw spel is, voeg de kaartjes dan normaal toe allemaal gesloten en met MouseDown event
+                else
+                {
+                    // Vul bron met vraagteken image
+                    kaartje.Source = new BitmapImage(new Uri("Vraagteken.png", UriKind.Relative));
+                    // voeg event toe aan kaartje. Bij klik op kaartje voer 'kaartklik' uit
+                    kaartje.MouseDown += new MouseButtonEventHandler(kaartklik);
+                }
+                // voeg tag toe aan kaartje met afbeelding achterkant, haal deze van lijst
+                kaartje.Tag = _afbeeldingen[0];
+                // verwijder bovenstaande imgsrc
+                _afbeeldingen.RemoveAt(0);
+                // selecteer juiste grid dmv variabelen in de 2 for lussen
+                Grid.SetColumn(kaartje, kolom);
+                Grid.SetRow(kaartje, rij);
+                // voeg ingestelde waarden kaartje in op betreffende grid
+                MemoryGrid.Children.Add(kaartje);
                 kolom++;
                 if (kolom == aantalKolommen)
                 {
                     kolom = 0;
                     rij++;
                 }
-                }
-            
+            }
+
         }
         /// <summary>
         /// Actie bij klikken op memorykaartje
@@ -520,10 +538,10 @@ namespace Memorygame
             }
             if (aantalKlik == 3)
             {
-                    // wissel van speler
-                    huidigeSpeler = huidigeSpeler == 1 ? 2 : 1;
-                    // na een 3e klik beide kaartjes weer omdraaien en van speler wisselen
-                    aantalKlik = 0;
+                // wissel van speler
+                huidigeSpeler = huidigeSpeler == 1 ? 2 : 1;
+                // na een 3e klik beide kaartjes weer omdraaien en van speler wisselen
+                aantalKlik = 0;
                 // zet multiplier weer op 1
                 huidigeMultiplier = 1;
                 foreach (Image x in openKaarten)
@@ -566,7 +584,7 @@ namespace Memorygame
         private void resetSpelKnop(object sender, RoutedEventArgs e)
         {
             resetSpel();
-                }
+        }
 
         private void resetSpel()
         {
@@ -646,7 +664,8 @@ namespace Memorygame
                 }
                 File.AppendAllText(locatieSavBestand, "EIND OMGEDRAAIDE KAARTJES");
                 MessageBox.Show("Spel is opgeslagen");
-            } else
+            }
+            else
             {
                 MessageBox.Show("Opslaan niet mogelijk door het ontbreken van het SAV bestand");
             }
@@ -697,6 +716,22 @@ namespace Memorygame
                 if (_aantalScores == 0)
                     break;
             }
+        }
+
+        private void muziek(object sender, RoutedEventArgs e)
+        {
+            if (geluidSpeelt)
+            {
+                sound.Stop();
+                geluidSpeelt = false;
+            }
+                
+            else
+            {
+                sound.PlayLooping(); geluidSpeelt = true;
+                geluidSpeelt = true;
+            }
+                
         }
     }
 }

@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("vraagteken.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("muziek/muziek.wav")]
 
 
