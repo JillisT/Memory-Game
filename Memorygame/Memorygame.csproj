@@ -65,6 +65,11 @@
     <Compile Include="Instellingen.xaml.cs">
       <DependentUpon>Instellingen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Spel.xaml.cs">
       <DependentUpon>Spel.xaml</DependentUpon>
     </Compile>
@@ -115,6 +120,7 @@
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -203,7 +209,7 @@
     <None Include="Resources\muziek.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Super Mario Bros Win Stage Sound Effect.wav" />
+    <None Include="Resources\gewonnen.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

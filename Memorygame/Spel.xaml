@@ -33,7 +33,7 @@
                 </TextBlock>
             </Canvas>
             <Button Margin="1040,20,20,0" Width="130" Height="40" Content="Reset" Click="resetSpelKnop" Background="#FF5151DE" BorderThickness="0" Foreground="White" FontSize="18" />
-            <Button Margin="1040,70,20,0" Width="130" Height="40" Content="Opslaan" Click="opslaan" Background="#FF5151DE" BorderThickness="0" Foreground="White" FontSize="18" />
+            <Button Margin="1040,75,20,0" Width="130" Height="40" Content="Opslaan" Click="opslaan" Background="#FF5151DE" BorderThickness="0" Foreground="White" FontSize="18" />
             <Button Margin="1040,130,20,0" Width="130" Height="40" Content="Toggle muziek" Click="muziek" Background="#FF5151DE" BorderThickness="0" Foreground="White" FontSize="18" />
 
         </Canvas>

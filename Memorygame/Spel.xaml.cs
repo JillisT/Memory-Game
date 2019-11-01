@@ -171,31 +171,7 @@ namespace Memorygame
                 _aantalKaartjes = value;
                 if (_aantalKaartjes == 0)
                 {
-                    if (huidigeScoreSpeler1 > huidigeScoreSpeler2)
-                    {
-                        MessageBox.Show(naamSpeler1 + " heeft gewonnen met " + huidigeScoreSpeler1 + " punten tegen " + naamSpeler2 + " met " + huidigeScoreSpeler2 + " punten");
-                    }
-                    else if (huidigeScoreSpeler2 > huidigeScoreSpeler1)
-                    {
-                        MessageBox.Show(naamSpeler2 + " heeft gewonnen met " + huidigeScoreSpeler2 + " punten tegen " + naamSpeler1 + " met " + huidigeScoreSpeler1 + " punten");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Gelijk spel!");
-                    }
-                    // highscore opslaan
-                    if (locatieHighscoreBestand != null)
-                    {
-                        highscoreWegschrijven();
-                        Highscores highscores = new Highscores(locatieHighscoreBestand);
-                        highscores.Show();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Highscore niet opgeslagen door ontbreken highscore bestand.");
-                    }
-                    resetSpel();
-
+                    winnaar();
                 }
             }
         }
@@ -220,6 +196,36 @@ namespace Memorygame
                 huidigeScoreSpeler1 = 0;
                 huidigeScoreSpeler2 = 0;
             }
+        }
+
+        private void winnaar()
+        {
+            sound.Stop();
+            gewonnen.Play();
+            if (huidigeScoreSpeler1 > huidigeScoreSpeler2)
+            {
+                MessageBox.Show(naamSpeler1 + " heeft gewonnen met " + huidigeScoreSpeler1 + " punten tegen " + naamSpeler2 + " met " + huidigeScoreSpeler2 + " punten");
+            }
+            else if (huidigeScoreSpeler2 > huidigeScoreSpeler1)
+            {
+                MessageBox.Show(naamSpeler2 + " heeft gewonnen met " + huidigeScoreSpeler2 + " punten tegen " + naamSpeler1 + " met " + huidigeScoreSpeler1 + " punten");
+            }
+            else
+            {
+                MessageBox.Show("Gelijk spel!");
+            }
+            // highscore opslaan
+            if (locatieHighscoreBestand != null)
+            {
+                highscoreWegschrijven();
+                Highscores highscores = new Highscores(locatieHighscoreBestand);
+                highscores.Show();
+            }
+            else
+            {
+                MessageBox.Show("Highscore niet opgeslagen door ontbreken highscore bestand.");
+            }
+            resetSpel();
         }
 
         /// <summary>
