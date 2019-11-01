@@ -109,7 +109,7 @@ namespace Memorygame
                     value = _aantalSets;
                     MessageBox.Show("Je hebt een grid van " + breedteLengte + ". Hierin zijn maximaal " + Convert.ToString((breedte * lengte) / 2) + " combinatie's mogelijk.");
                 }
-                if ((breedte * lengte % value) != 0)
+                if (((breedte * lengte - (breedte * lengte % 2)) % value) != 0)
                 {
                     value = _aantalSets;
                     MessageBox.Show("Dit aantal sets komt niet uit met het huidige grid van " + breedteLengte);
