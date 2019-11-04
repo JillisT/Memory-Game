@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,19 +22,33 @@ namespace Memorygame
     /// </summary>
     public partial class MainWindow : Window
     {
+        // bool of bestanden aanwezig zijn
         bool bestandenAanwezig;
+        // bool of highscore bestand is ingevuld
         bool highscoreAanwezig;
+        // bool of SAV bestand is ingevuld
         bool savAanwezig;
-        string map = @"C:\MemoryGame\";
+        // locatie MemoryMap
+        string map = @"C:\MemoryGameGroep19\";
+        // locatie SAV bestand binnen memory map
         string padSavBestand = "save.sav";
+        // locatie Highscore bestand binnen MemoryMap
         string padHighscores = "memory.txt";
+        // locatie Instellingen bestand binnen MemoryMap
         string padInstellingen = "instellingen.txt";
+        // array met volledige paden benodigde bestanden. Volgorde: [0]Save bestand, [1]instellingen bestand, [2]highscore bestand
         string[] paden = new string[3];
+
+        /// <summary>
+        /// Roep hoofdscherm op
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
+            // vul bool bestandenAanwezig aan de hand van uitkomst ControleerMapenBestanden methode
             bestandenAanwezig = controleerMapenBestanden();
-            if (bestandenAanwezig == true)
+            // als de bestanden aanwezig zijn, controleer dan of highscore bestand en sav bestand is ingevuld. Zet volledige paden in array paden
+            if (bestandenAanwezig)
             {
                 highscoreAanwezig = controleerHighscoresBestand();
                 savAanwezig = controleerSav();
@@ -56,6 +71,7 @@ namespace Memorygame
             {
                 try { Directory.CreateDirectory(map); }
                 catch (Exception) { MessageBox.Show("Kan map niet aanmaken. Zorg ervoor dat de map " + map + " bestaat en toegankelijk is. Opslaan en highscores zijn niet beschikbaar"); return false; };
+                MessageBox.Show("De bestandenmap is zojuist aangemaakt. Start het spel aub opnieuw op.");
             }
             if (!(File.Exists(map + padSavBestand)))
             {
@@ -97,21 +113,23 @@ namespace Memorygame
             return true;
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Sluit venster als er op Exit wordt geklikt
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Exit(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            System.Windows.Application.Current.Shutdown();
         }
 
+        /// <summary>
+        /// Als er op continue wordt geklikt, controleer of savbestand aanwezig is adv boolsavAanwezig
+        /// Indien ja, start spel met parameter true (spel hervatten) en de benodigde paden
+        /// Indien nee, geen melding
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Continue(object sender, RoutedEventArgs e)
         {
             if (savAanwezig)
@@ -128,6 +146,12 @@ namespace Memorygame
 
         }
 
+        /// <summary>
+        /// Als er op nieuw spel wordt geklikt, controleer eerst of er een SAV bestand aanwezig is.
+        /// Indien ja, vraag of nieuw spel starten of spel hervatten. Indien nieuw spel herstarten dan eerst SAV bestand leegmaken.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_New_Game(object sender, RoutedEventArgs e)
         {
             if (savAanwezig)
@@ -136,39 +160,55 @@ namespace Memorygame
                 MessageBoxResult m = MessageBox.Show("Wil je een nieuw spel starten? Het opgeslagen spel wordt gewist", "Opgeslagen bestand gevonden.", MessageBoxButton.YesNo);
                 if (m == MessageBoxResult.Yes)
                 {
+                    // indien nieuw spel starten, eerste sav bestand legen en daarna nieuw spel starten
                     File.WriteAllText(map + padSavBestand, string.Empty);
                     SpelWindow spelwindow = new SpelWindow(false, paden);
                     spelwindow.Show();
                 }
                 else if (m == MessageBoxResult.No)
                 {
+                    // Indien hervatten, dan spel hervatten
                     SpelWindow spelwindow = new SpelWindow(true, paden);
                     spelwindow.Show();
                 }
             } else
             // geen sav aanwezig, nieuw spel starten
             {
+                // controleer of de map aanwezig is
                 if (bestandenAanwezig)
                 {
+                    // indien ja, nieuw spel starten en paden meegeven
                     SpelWindow spelwindow = new SpelWindow(false, paden);
                     spelwindow.Show();
                 } else
                 {
+                    // indien nee, nieuw spel starten zonder paden
                     SpelWindow spelwindow = new SpelWindow();
                     spelwindow.Show();
                 }
                 
             }
-            this.Hide();
+            // verberg main window als nieuw spel wordt herstart
+            this.Close();
 
         }
+
+        /// <summary>
+        /// Instellingen venster oproepen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Settings(object sender, RoutedEventArgs e)
         {
+            // controller of bestanden aanwezig zijn
             if (bestandenAanwezig)
             {
-                try { File.ReadAllLines(map + padInstellingen); }
+                // Probeer instellingen bestand te openen
+                try { File.ReadAllLines(paden[1]); }
+                // indien het niet lukt, geef dan een foutmelding. Dit omdat als het bestand net is aangemaakt het nog gelocked kan zijn
                 catch (Exception) { MessageBox.Show("Het instellingenbestand is niet beschikbaar. Probeer het over enkele seconden opnieuw of probeer het spel opnieuw te starten."); return; };
-                Instellingen instellingen = new Instellingen(map + padInstellingen);
+                // maak instance aan voor instellingen en show deze
+                Instellingen instellingen = new Instellingen(paden[1]);
                 instellingen.Show();
             } else
             {
@@ -177,20 +217,32 @@ namespace Memorygame
             
         }
 
+        /// <summary>
+        /// Highscore scherm oproepen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Highscores(object sender, RoutedEventArgs e)
         {
+            // controleer of highscore bestand is ingevuld
             if (highscoreAanwezig)
             {
-                
-                Highscores highscores = new Highscores(map + padHighscores);
+                // indien ja, maak instance van highscores en show deze.
+                Highscores highscores = new Highscores(paden[2]);
                 highscores.Show();
             } else
             {
+                // indien nee, geef foutmelding
                 MessageBox.Show("Highscores zijn niet aanwezig");
             }
             
         }
 
+        /// <summary>
+        /// Roep help scherm op
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Help_Click(object sender, MouseButtonEventArgs e)
         {
             Help help = new Help();

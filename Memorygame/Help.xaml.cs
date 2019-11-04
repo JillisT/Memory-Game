@@ -19,6 +19,9 @@ namespace Memorygame
     /// </summary>
     public partial class Help : Window
     {
+        /// <summary>
+        /// Roep help scherm op
+        /// </summary>
         public Help()
         {
             InitializeComponent();

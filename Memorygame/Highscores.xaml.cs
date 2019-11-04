@@ -17,25 +17,34 @@ namespace Memorygame
 {
     /// <summary>
     /// Interaction logic for Highscores.xaml
+    /// Highscore scherm
     /// </summary>
     public partial class Highscores : Window
     {
         string padHighscores;
+        /// <summary>
+        /// Constructor voor Highscores class.
+        /// Leest highscore bestand uit, en vult het scherm met highscores
+        /// </summary>
+        /// <param name="_padHighscores">Pad naar highscore bestand</param>
         public Highscores(string _padHighscores)
         {
             InitializeComponent();
             padHighscores = _padHighscores;
             // haal scores op en sla op in dictionary _scores
             Dictionary<String, Int32> _scores = highscoreUitlezen();
+            // int voor margin boven, wordt per rij verhoogd
             int marginboven = 0;
             int positie = 0;
-            int laatsteScrore = -1;
+            // int met laatst uitgelezen score. Wordt gebruikt om positie (medaille) te bepalen.
+            int laatsteScrore = 0;
             // loop dic _scores af
             foreach (KeyValuePair<String, Int32> _item in _scores)
             {
                 // als score voorgaande speler niet gelijk is, dan 1 positie verhogen.
                 if (_item.Value != laatsteScrore)
                     positie++;
+                // Vul scherm met rijen met hierin 2 labels. Label 1 voor naam (key) en Label2 voor score (value)
                 laatsteScrore = _item.Value;
                 Label _label = new Label();
                 Label _label2 = new Label();
@@ -43,6 +52,7 @@ namespace Memorygame
                 _label2.Content = _item.Value;
                 _label.Margin = new Thickness(40, marginboven, 0,0);
                 _label2.Margin = new Thickness(550, marginboven, 0, 0);
+                // als positie op 1, 2 of 3 staat geef dan een breedte van 400, anders 500. Dit om ruimte te maken voor medaille welke voor label1 wordt geplaatst.
                 _label.Width = positie < 4 ? 400 : 500;
                 _label2.Width = 100;
                 // pas kleur toe aan de hand van positie
@@ -63,8 +73,10 @@ namespace Memorygame
                     image.VerticalAlignment = VerticalAlignment.Top;
                     lijst.Children.Add(image);
                 }
+                // voeg gegenereerde labels toe aan lijst in XAML bestand
                 lijst.Children.Add(_label);
                 lijst.Children.Add(_label2);
+                // verhoog marginboven met 40 zodat volgende rij er netjes onder komt te staan
                 marginboven += 40;
             }
         }
@@ -72,7 +84,7 @@ namespace Memorygame
         /// <summary>
         /// Lees Highscores uit
         /// </summary>
-        /// <returns>Dictionary met naam en score</returns>
+        /// <returns>Dictionary met naam(key) en score(value)</returns>
         public Dictionary<string, int> highscoreUitlezen()
         {
             string _naam = string.Empty;
@@ -96,6 +108,11 @@ namespace Memorygame
             }
             return _highScores;
         }
+        /// <summary>
+        /// Sluit scherm als op exit wordt geklikt
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Exit(object sender, RoutedEventArgs e)
         {
             this.Close();

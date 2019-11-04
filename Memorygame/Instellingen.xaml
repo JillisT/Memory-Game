@@ -10,7 +10,11 @@
         <TextBlock x:Name="Memory_game" Margin="0,0,0,0" TextWrapping="Wrap" HorizontalAlignment="Center" Width="400" FontSize="36" Foreground="#FF1B1B1B" TextAlignment="Center" FontWeight="Bold" Background="#FF5151DE" Height="100" VerticalAlignment="Top" Text="Instellingen"/>
         <Grid x:Name="instellingen_grid" Width="700" Margin="53,105,42,87.5">
             <Label Content="Grid grootte" Foreground="White" FontSize="24" x:Name="grid_grootte" HorizontalAlignment="Center" VerticalAlignment="Top" />
-            <Label Content="{Binding breedteLengte}" Foreground="#FF5151DE" FontSize="24" x:Name="grid_grootte_setting" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Top" />
+            <TextBlock Foreground="#FF5151DE" FontSize="24" x:Name="grid_grootte_setting" HorizontalAlignment="Center" Margin="0,30,0,0" VerticalAlignment="Top">
+                <Run Text="{Binding Path=lengte}"></Run>
+                <Run Text=" * "></Run>
+                <Run Text="{Binding lengte}"></Run>
+            </TextBlock>
             <Canvas Height="50" Width="400" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,70,0,0">
                 <Button x:Name="vier" Width="100" Height="40" Content="4 * 4" HorizontalAlignment="Center" Margin="0,0,0,0" Click="setKlik4" Background="#FF5151DE" FontSize="20" Foreground="White"></Button>
                 <Button x:Name="vijf" Width="100" Height="40" Content="5 * 5" HorizontalAlignment="Center" Margin="150,0,0,0" Click="setKlik5" Background="#FF5151DE" FontSize="20" Foreground="White"></Button>
@@ -21,7 +25,10 @@
                 <TextBox Text="{Binding aantalSets}" Margin="0,0,0,0" Height="40" Width="50" FontSize="20" Foreground="#FF5151DE" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
                 <Button x:Name="saveTurnTime" Width="100" Height="40" Content="Aanpassen" HorizontalAlignment="Center" Margin="60,0,0,0" Background="#FF5151DE" FontSize="20" Foreground="White"></Button>
             </Canvas>
-            <Label Content="{Binding aantalSetsString}" Foreground="#FF5151DE" FontSize="24" x:Name="aantalSets_setting" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top" />
+            <TextBlock Foreground="#FF5151DE" FontSize="24" x:Name="aantalSets_setting" HorizontalAlignment="Center" Margin="0,150,0,0" VerticalAlignment="Top">
+                <Run Text="{Binding aantalSets}"></Run>
+                <Run Text="sets"></Run>
+            </TextBlock>
             <Label Content="Thema" Foreground="White" FontSize="24" x:Name="thema_label" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,250,0,0" />
             <Label Content="{Binding thema}" Foreground="#FF5151DE" FontSize="24" x:Name="thema_setting" HorizontalAlignment="Center" Margin="0,275,0,0" VerticalAlignment="Top" />
             <Canvas Height="50" Width="400" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,320,0,0">
